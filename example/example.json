@@ -25,5 +25,16 @@
       "repo": "https://github.com/spring-projects/spring-petclinic"
     }
   ],
-  "service_overrides": []
+  "service_overrides": [
+    {
+      "repository": "Spring Petclinic",
+      "service": "spring-petclinic",
+      "instances_per_service": 3
+    },
+    {
+      "repository": "Spring Real Example App",
+      "service": "spring-boot-realworld-example-app",
+      "instances_per_service": 2
+    }
+  ]
 }

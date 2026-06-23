@@ -811,7 +811,7 @@
       </div>
       <div class="rail-meta">
         <strong>Static Java workspace sizing report</strong>
-        <span>Generated 2026-06-23 22:34:55 UTC</span>
+        <span>Generated 2026-06-23 22:37:05 UTC</span>
       </div>
       <nav class="rail-nav">
         <div class="workspace-nav-group active" data-workspace-group="overview">
@@ -860,8 +860,8 @@
             <div class="hero-grid">
               <div class="hero-copy">
                 <span class="eyebrow">Workspace active series</span>
-                <h1>196</h1>
-                <p>134 low / 276 high across 2 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
+                <h1>497</h1>
+                <p>338 low / 692 high across 2 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
               </div>
               <aside class="summary-panel" aria-label="Workspace summary">
                 <p>Scanned 2 repo(s), 2 service(s), 31 operation(s), and 2 service-graph edge(s) using the grafana-cloud-app-o11y profile.</p>
@@ -902,7 +902,7 @@
                     <td class="numeric">1</td>
                     <td class="numeric">15</td>
                     <td class="numeric">0</td>
-                    <td class="numeric">91</td>
+                    <td class="numeric">182</td>
                   </tr>
                   
                   <tr>
@@ -911,7 +911,7 @@
                     <td class="numeric">1</td>
                     <td class="numeric">16</td>
                     <td class="numeric">2</td>
-                    <td class="numeric">105</td>
+                    <td class="numeric">315</td>
                   </tr>
                   
                 </tbody>
@@ -934,13 +934,13 @@
                 <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>span-metrics-count</code></td><td class="numeric">62</td><td class="numeric">93</td><td class="numeric">131</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">156</td><td class="numeric">234</td><td class="numeric">328</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
                   
-                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">62</td><td class="numeric">93</td><td class="numeric">131</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">156</td><td class="numeric">234</td><td class="numeric">328</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
-                  <tr><td><code>service-graph</code></td><td class="numeric">8</td><td class="numeric">8</td><td class="numeric">10</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  <tr><td><code>service-graph</code></td><td class="numeric">24</td><td class="numeric">24</td><td class="numeric">29</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
-                  <tr><td><code>host-info</code></td><td class="numeric">2</td><td class="numeric">2</td><td class="numeric">4</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  <tr><td><code>host-info</code></td><td class="numeric">2</td><td class="numeric">5</td><td class="numeric">7</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
                 </tbody>
               </table>
@@ -961,13 +961,13 @@
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <span class="chip">Spring Petclinic</span></span><span class="bar-value">105</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 53%"></span></span>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <span class="chip">Spring Petclinic</span></span><span class="bar-value">315</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 63%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <span class="chip">Spring Real Example App</span></span><span class="bar-value">91</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 46%"></span></span>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <span class="chip">Spring Real Example App</span></span><span class="bar-value">182</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 36%"></span></span>
               </div>
               
             </div>
@@ -988,102 +988,102 @@
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /oups</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/find</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}/comments/{id}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users/login</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /vets.html</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /oups</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/find</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1126,14 +1126,14 @@
               <span class="eyebrow">Repository drilldown</span>
               <h2>Spring Real Example App</h2>
             </div>
-            <span class="section-count">91 expected series</span>
+            <span class="section-count">182 expected series</span>
           </div>
 
           <div class="stat-band" aria-label="Spring Real Example App summary">
             <div class="stat-item"><span class="stat-label">Services</span><strong>1</strong></div>
             <div class="stat-item"><span class="stat-label">Operations</span><strong>15</strong></div>
             <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>0</strong></div>
-            <div class="stat-item"><span class="stat-label">Active series</span><strong>91</strong></div>
+            <div class="stat-item"><span class="stat-label">Active series</span><strong>182</strong></div>
           </div>
 
           <div class="detail-panel" id="repo-spring-real-example-app-source" style="margin-top: 16px;">
@@ -1142,7 +1142,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/gothinkster/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-28823435/spring-boot-realworld-example-app</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3420008704/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1163,13 +1163,13 @@
                 <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>span-metrics-count</code></td><td class="numeric">30</td><td class="numeric">45</td><td class="numeric">63</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">60</td><td class="numeric">90</td><td class="numeric">126</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
                   
-                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">30</td><td class="numeric">45</td><td class="numeric">63</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">60</td><td class="numeric">90</td><td class="numeric">126</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
                   <tr><td><code>service-graph</code></td><td class="numeric">0</td><td class="numeric">0</td><td class="numeric">0</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
-                  <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">1</td><td class="numeric">2</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">2</td><td class="numeric">3</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
                 </tbody>
               </table>
@@ -1209,77 +1209,77 @@
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /articles/{slug}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles/{slug}/comments</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}/comments</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}/comments/{id}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}/comments/{id}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users/login</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> ANY /users/login</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1305,14 +1305,14 @@
               <span class="eyebrow">Repository drilldown</span>
               <h2>Spring Petclinic</h2>
             </div>
-            <span class="section-count">105 expected series</span>
+            <span class="section-count">315 expected series</span>
           </div>
 
           <div class="stat-band" aria-label="Spring Petclinic summary">
             <div class="stat-item"><span class="stat-label">Services</span><strong>1</strong></div>
             <div class="stat-item"><span class="stat-label">Operations</span><strong>16</strong></div>
             <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>2</strong></div>
-            <div class="stat-item"><span class="stat-label">Active series</span><strong>105</strong></div>
+            <div class="stat-item"><span class="stat-label">Active series</span><strong>315</strong></div>
           </div>
 
           <div class="detail-panel" id="repo-spring-petclinic-source" style="margin-top: 16px;">
@@ -1321,7 +1321,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/spring-projects/spring-petclinic</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-214649669/spring-petclinic</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-884327595/spring-petclinic</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1342,13 +1342,13 @@
                 <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>span-metrics-count</code></td><td class="numeric">32</td><td class="numeric">48</td><td class="numeric">68</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">96</td><td class="numeric">144</td><td class="numeric">202</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
                   
-                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">32</td><td class="numeric">48</td><td class="numeric">68</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">96</td><td class="numeric">144</td><td class="numeric">202</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
-                  <tr><td><code>service-graph</code></td><td class="numeric">8</td><td class="numeric">8</td><td class="numeric">10</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  <tr><td><code>service-graph</code></td><td class="numeric">24</td><td class="numeric">24</td><td class="numeric">29</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
-                  <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">1</td><td class="numeric">2</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">3</td><td class="numeric">4</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
                 </tbody>
               </table>
@@ -1388,82 +1388,82 @@
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /oups</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /oups</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/find</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/find</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /vets.html</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /vets.html</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               

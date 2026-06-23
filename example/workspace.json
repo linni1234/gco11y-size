@@ -1,6 +1,6 @@
 {
   "version": "0.3.0",
-  "generated_at": "2026-06-23T22:34:55.876743Z",
+  "generated_at": "2026-06-23T22:37:05.132865Z",
   "options": {
     "repo": "workspace",
     "keep_worktree": false,
@@ -22,22 +22,14 @@
     "instance_label_enabled": true,
     "service_overrides": [
       {
-        "repository": "Spring Real Example App",
-        "service": "spring-boot-realworld-example-app",
-        "environments": [
-          "prod"
-        ],
-        "environment_count": 1,
-        "instances_per_service": 1
-      },
-      {
         "repository": "Spring Petclinic",
         "service": "spring-petclinic",
-        "environments": [
-          "prod"
-        ],
-        "environment_count": 1,
-        "instances_per_service": 1
+        "instances_per_service": 3
+      },
+      {
+        "repository": "Spring Real Example App",
+        "service": "spring-boot-realworld-example-app",
+        "instances_per_service": 2
       }
     ],
     "include_client_producer": false,
@@ -45,7 +37,7 @@
   },
   "aggregate": {
     "version": "0.3.0",
-    "generated_at": "2026-06-23T22:34:55.876743Z",
+    "generated_at": "2026-06-23T22:37:05.132865Z",
     "options": {
       "repo": "workspace",
       "keep_worktree": false,
@@ -67,22 +59,14 @@
       "instance_label_enabled": true,
       "service_overrides": [
         {
-          "repository": "Spring Real Example App",
-          "service": "spring-boot-realworld-example-app",
-          "environments": [
-            "prod"
-          ],
-          "environment_count": 1,
-          "instances_per_service": 1
-        },
-        {
           "repository": "Spring Petclinic",
           "service": "spring-petclinic",
-          "environments": [
-            "prod"
-          ],
-          "environment_count": 1,
-          "instances_per_service": 1
+          "instances_per_service": 3
+        },
+        {
+          "repository": "Spring Real Example App",
+          "service": "spring-boot-realworld-example-app",
+          "instances_per_service": 2
         }
       ],
       "include_client_producer": false,
@@ -97,7 +81,7 @@
     },
     "analysis": {
       "repository": "workspace",
-      "generated_at": "2026-06-23T22:34:57.813092Z",
+      "generated_at": "2026-06-23T22:37:07.129125Z",
       "services": [
         {
           "name": "spring-boot-realworld-example-app",
@@ -136,20 +120,6 @@
           "repository": "Spring Real Example App",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "GET",
-          "route": "/",
-          "handler": "ProfileApi.getProfile",
-          "source": "src/main/java/io/spring/api/ProfileApi.java, src/main/java/io/spring/api/TagsApi.java",
-          "confidence": "high",
-          "detectors": [
-            "spring-mvc"
-          ]
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "kind": "SERVER",
-          "protocol": "http",
           "method": "POST",
           "route": "/",
           "handler": "ArticleFavoriteApi.favoriteArticle",
@@ -164,10 +134,10 @@
           "repository": "Spring Real Example App",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "POST",
-          "route": "/articles",
-          "handler": "ArticlesApi.createArticle",
-          "source": "src/main/java/io/spring/api/ArticlesApi.java",
+          "method": "GET",
+          "route": "/",
+          "handler": "ProfileApi.getProfile",
+          "source": "src/main/java/io/spring/api/ProfileApi.java, src/main/java/io/spring/api/TagsApi.java",
           "confidence": "high",
           "detectors": [
             "spring-mvc"
@@ -192,10 +162,10 @@
           "repository": "Spring Real Example App",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "PUT",
-          "route": "/articles/{slug}",
-          "handler": "ArticleApi.updateArticle",
-          "source": "src/main/java/io/spring/api/ArticleApi.java",
+          "method": "POST",
+          "route": "/articles",
+          "handler": "ArticlesApi.createArticle",
+          "source": "src/main/java/io/spring/api/ArticlesApi.java",
           "confidence": "high",
           "detectors": [
             "spring-mvc"
@@ -234,10 +204,10 @@
           "repository": "Spring Real Example App",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "POST",
-          "route": "/articles/{slug}/comments",
-          "handler": "CommentsApi.createComment",
-          "source": "src/main/java/io/spring/api/CommentsApi.java",
+          "method": "PUT",
+          "route": "/articles/{slug}",
+          "handler": "ArticleApi.updateArticle",
+          "source": "src/main/java/io/spring/api/ArticleApi.java",
           "confidence": "high",
           "detectors": [
             "spring-mvc"
@@ -251,6 +221,20 @@
           "method": "GET",
           "route": "/articles/{slug}/comments",
           "handler": "CommentsApi.getComments",
+          "source": "src/main/java/io/spring/api/CommentsApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles/{slug}/comments",
+          "handler": "CommentsApi.createComment",
           "source": "src/main/java/io/spring/api/CommentsApi.java",
           "confidence": "high",
           "detectors": [
@@ -430,9 +414,9 @@
           "repository": "Spring Petclinic",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "POST",
+          "method": "GET",
           "route": "/owners/{ownerId}/edit",
-          "handler": "OwnerController.processUpdateOwnerForm",
+          "handler": "OwnerController.initUpdateOwnerForm",
           "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
           "confidence": "high",
           "detectors": [
@@ -444,9 +428,9 @@
           "repository": "Spring Petclinic",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "GET",
+          "method": "POST",
           "route": "/owners/{ownerId}/edit",
-          "handler": "OwnerController.initUpdateOwnerForm",
+          "handler": "OwnerController.processUpdateOwnerForm",
           "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
           "confidence": "high",
           "detectors": [
@@ -514,9 +498,9 @@
           "repository": "Spring Petclinic",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "POST",
+          "method": "GET",
           "route": "/owners/{ownerId}/pets/{petId}/visits/new",
-          "handler": "VisitController.processNewVisitForm",
+          "handler": "VisitController.initNewVisitForm",
           "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
           "confidence": "high",
           "detectors": [
@@ -528,9 +512,9 @@
           "repository": "Spring Petclinic",
           "kind": "SERVER",
           "protocol": "http",
-          "method": "GET",
+          "method": "POST",
           "route": "/owners/{ownerId}/pets/{petId}/visits/new",
-          "handler": "VisitController.initNewVisitForm",
+          "handler": "VisitController.processNewVisitForm",
           "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
           "confidence": "high",
           "detectors": [
@@ -610,192 +594,57 @@
       "detected_language": "java/spring-boot, java"
     },
     "estimate": {
-      "total_low": 134,
-      "total_expected": 196,
-      "total_high": 276,
+      "total_low": 338,
+      "total_expected": 497,
+      "total_high": 692,
       "processor_breakdown": [
         {
           "processor": "span-metrics-count",
-          "low": 62,
-          "expected": 93,
-          "high": 131,
+          "low": 156,
+          "expected": 234,
+          "high": 328,
           "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
         },
         {
           "processor": "span-metrics-latency",
-          "low": 62,
-          "expected": 93,
-          "high": 131,
+          "low": 156,
+          "expected": 234,
+          "high": 328,
           "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
         },
         {
           "processor": "service-graph",
-          "low": 8,
-          "expected": 8,
-          "high": 10,
+          "low": 24,
+          "expected": 24,
+          "high": 29,
           "formula": "directed service edges x environments x instance label values x (request_total + failed_total + 2 x (native histogram series))"
         },
         {
           "processor": "host-info",
           "low": 2,
-          "expected": 2,
-          "high": 4,
+          "expected": 5,
+          "high": 7,
           "formula": "unique service/environment/instance combinations, target_info style"
         }
       ],
       "component_breakdown": [
         {
           "component": "span-metrics",
-          "expected": 186,
+          "expected": 468,
           "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
         },
         {
           "component": "service-graph",
-          "expected": 8,
+          "expected": 24,
           "formula": "directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses native histogram series"
         },
         {
           "component": "host-info",
-          "expected": 2,
+          "expected": 5,
           "formula": "unique service/environment/instance combinations, target_info style"
         }
       ],
       "operation_contributors": [
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "POST",
-          "route": "/",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "GET",
-          "route": "/",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "DELETE",
-          "route": "/",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "POST",
-          "route": "/articles",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "GET",
-          "route": "/articles",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "GET",
-          "route": "/articles/{slug}",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "DELETE",
-          "route": "/articles/{slug}",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "PUT",
-          "route": "/articles/{slug}",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "POST",
-          "route": "/articles/{slug}/comments",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "GET",
-          "route": "/articles/{slug}/comments",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "DELETE",
-          "route": "/articles/{slug}/comments/{id}",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "PUT",
-          "route": "/user",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "GET",
-          "route": "/user",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "ANY",
-          "route": "/users",
-          "kind": "SERVER",
-          "expected": 6
-        },
-        {
-          "service": "spring-boot-realworld-example-app",
-          "repository": "Spring Real Example App",
-          "protocol": "http",
-          "method": "ANY",
-          "route": "/users/login",
-          "kind": "SERVER",
-          "expected": 6
-        },
         {
           "service": "spring-petclinic",
           "repository": "Spring Petclinic",
@@ -803,7 +652,7 @@
           "method": "GET",
           "route": "/",
           "kind": "SERVER",
-          "expected": 6
+          "expected": 18
         },
         {
           "service": "spring-petclinic",
@@ -812,7 +661,7 @@
           "method": "GET",
           "route": "/oups",
           "kind": "SERVER",
-          "expected": 6
+          "expected": 18
         },
         {
           "service": "spring-petclinic",
@@ -821,7 +670,7 @@
           "method": "GET",
           "route": "/owners",
           "kind": "SERVER",
-          "expected": 6
+          "expected": 18
         },
         {
           "service": "spring-petclinic",
@@ -830,7 +679,16 @@
           "method": "GET",
           "route": "/owners/find",
           "kind": "SERVER",
-          "expected": 6
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/new",
+          "kind": "SERVER",
+          "expected": 18
         },
         {
           "service": "spring-petclinic",
@@ -839,19 +697,145 @@
           "method": "POST",
           "route": "/owners/new",
           "kind": "SERVER",
-          "expected": 6
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/edit",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/edit",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/new",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/new",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/{petId}/edit",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/{petId}/edit",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/vets.html",
+          "kind": "SERVER",
+          "expected": 18
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 12
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 12
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 12
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles",
+          "kind": "SERVER",
+          "expected": 12
         }
       ],
       "service_breakdown": [
         {
           "service": "spring-petclinic",
           "repository": "Spring Petclinic",
-          "expected": 105
+          "expected": 315
         },
         {
           "service": "spring-boot-realworld-example-app",
           "repository": "Spring Real Example App",
-          "expected": 91
+          "expected": 182
         }
       ],
       "uncertainty_model": [
@@ -939,7 +923,7 @@
       "name": "Spring Real Example App",
       "report": {
         "version": "0.3.0",
-        "generated_at": "2026-06-23T22:34:55.876743Z",
+        "generated_at": "2026-06-23T22:37:05.132865Z",
         "options": {
           "repo": "https://github.com/gothinkster/spring-boot-realworld-example-app",
           "keep_worktree": false,
@@ -959,6 +943,18 @@
           ],
           "instances_per_service": 1,
           "instance_label_enabled": true,
+          "service_overrides": [
+            {
+              "repository": "Spring Petclinic",
+              "service": "spring-petclinic",
+              "instances_per_service": 3
+            },
+            {
+              "repository": "Spring Real Example App",
+              "service": "spring-boot-realworld-example-app",
+              "instances_per_service": 2
+            }
+          ],
           "include_client_producer": false,
           "grafana_query": false
         },
@@ -967,14 +963,14 @@
           "type": "git",
           "provider": "github",
           "clone_url": "https://github.com/gothinkster/spring-boot-realworld-example-app",
-          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-28823435/spring-boot-realworld-example-app",
+          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3420008704/spring-boot-realworld-example-app",
           "resolved_ref": "ee17e31aafe733d98c4853c8b9a74d7f2f6c924a",
           "worktree_temporary": true,
           "worktree_retained": false
         },
         "analysis": {
-          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-28823435/spring-boot-realworld-example-app",
-          "generated_at": "2026-06-23T22:34:56.839682Z",
+          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3420008704/spring-boot-realworld-example-app",
+          "generated_at": "2026-06-23T22:37:06.066264Z",
           "services": [
             {
               "name": "spring-boot-realworld-example-app",
@@ -1210,22 +1206,22 @@
           "detected_language": "java/spring-boot,java"
         },
         "estimate": {
-          "total_low": 61,
-          "total_expected": 91,
-          "total_high": 128,
+          "total_low": 121,
+          "total_expected": 182,
+          "total_high": 255,
           "processor_breakdown": [
             {
               "processor": "span-metrics-count",
-              "low": 30,
-              "expected": 45,
-              "high": 63,
+              "low": 60,
+              "expected": 90,
+              "high": 126,
               "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
             },
             {
               "processor": "span-metrics-latency",
-              "low": 30,
-              "expected": 45,
-              "high": 63,
+              "low": 60,
+              "expected": 90,
+              "high": 126,
               "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
             },
             {
@@ -1238,15 +1234,15 @@
             {
               "processor": "host-info",
               "low": 1,
-              "expected": 1,
-              "high": 2,
+              "expected": 2,
+              "high": 3,
               "formula": "unique service/environment/instance combinations, target_info style"
             }
           ],
           "component_breakdown": [
             {
               "component": "span-metrics",
-              "expected": 90,
+              "expected": 180,
               "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
             },
             {
@@ -1256,7 +1252,7 @@
             },
             {
               "component": "host-info",
-              "expected": 1,
+              "expected": 2,
               "formula": "unique service/environment/instance combinations, target_info style"
             }
           ],
@@ -1268,16 +1264,7 @@
               "method": "DELETE",
               "route": "/",
               "kind": "SERVER",
-              "expected": 6
-            },
-            {
-              "service": "spring-boot-realworld-example-app",
-              "repository": "Spring Real Example App",
-              "protocol": "http",
-              "method": "GET",
-              "route": "/",
-              "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1286,16 +1273,16 @@
               "method": "POST",
               "route": "/",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
               "repository": "Spring Real Example App",
               "protocol": "http",
               "method": "GET",
-              "route": "/articles",
+              "route": "/",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1304,16 +1291,16 @@
               "method": "POST",
               "route": "/articles",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
               "repository": "Spring Real Example App",
               "protocol": "http",
               "method": "GET",
-              "route": "/articles/{slug}",
+              "route": "/articles",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1322,7 +1309,16 @@
               "method": "DELETE",
               "route": "/articles/{slug}",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}",
+              "kind": "SERVER",
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1331,16 +1327,7 @@
               "method": "PUT",
               "route": "/articles/{slug}",
               "kind": "SERVER",
-              "expected": 6
-            },
-            {
-              "service": "spring-boot-realworld-example-app",
-              "repository": "Spring Real Example App",
-              "protocol": "http",
-              "method": "GET",
-              "route": "/articles/{slug}/comments",
-              "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1349,7 +1336,16 @@
               "method": "POST",
               "route": "/articles/{slug}/comments",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}/comments",
+              "kind": "SERVER",
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1358,16 +1354,7 @@
               "method": "DELETE",
               "route": "/articles/{slug}/comments/{id}",
               "kind": "SERVER",
-              "expected": 6
-            },
-            {
-              "service": "spring-boot-realworld-example-app",
-              "repository": "Spring Real Example App",
-              "protocol": "http",
-              "method": "PUT",
-              "route": "/user",
-              "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1376,7 +1363,16 @@
               "method": "GET",
               "route": "/user",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "PUT",
+              "route": "/user",
+              "kind": "SERVER",
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1385,7 +1381,7 @@
               "method": "ANY",
               "route": "/users",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             },
             {
               "service": "spring-boot-realworld-example-app",
@@ -1394,14 +1390,14 @@
               "method": "ANY",
               "route": "/users/login",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 12
             }
           ],
           "service_breakdown": [
             {
               "service": "spring-boot-realworld-example-app",
               "repository": "Spring Real Example App",
-              "expected": 91
+              "expected": 182
             }
           ],
           "uncertainty_model": [
@@ -1468,6 +1464,7 @@
             "Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
             "Host info sizing assumes one target-info style series per service instance and environment.",
             "Named environments are modeled as: prod.",
+            "2 service-specific environment/instance override(s) are applied before estimating processor series.",
             "Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by 1 instance value(s) per service.",
             "Histogram type native is the default and uses one native histogram series per latency label set; --histogram-buckets is ignored unless --histogram-type=classic or both.",
             "CLIENT and PRODUCER span kinds are excluded from span-metric operation sizing by default.",
@@ -1481,7 +1478,7 @@
       "name": "Spring Petclinic",
       "report": {
         "version": "0.3.0",
-        "generated_at": "2026-06-23T22:34:55.876743Z",
+        "generated_at": "2026-06-23T22:37:05.132865Z",
         "options": {
           "repo": "https://github.com/spring-projects/spring-petclinic",
           "keep_worktree": false,
@@ -1501,6 +1498,18 @@
           ],
           "instances_per_service": 1,
           "instance_label_enabled": true,
+          "service_overrides": [
+            {
+              "repository": "Spring Petclinic",
+              "service": "spring-petclinic",
+              "instances_per_service": 3
+            },
+            {
+              "repository": "Spring Real Example App",
+              "service": "spring-boot-realworld-example-app",
+              "instances_per_service": 2
+            }
+          ],
           "include_client_producer": false,
           "grafana_query": false
         },
@@ -1509,14 +1518,14 @@
           "type": "git",
           "provider": "github",
           "clone_url": "https://github.com/spring-projects/spring-petclinic",
-          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-214649669/spring-petclinic",
+          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-884327595/spring-petclinic",
           "resolved_ref": "b3ee2c53e76e9267f03551a7cd36b0983c859c56",
           "worktree_temporary": true,
           "worktree_retained": false
         },
         "analysis": {
-          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-214649669/spring-petclinic",
-          "generated_at": "2026-06-23T22:34:57.804558Z",
+          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-884327595/spring-petclinic",
+          "generated_at": "2026-06-23T22:37:07.120384Z",
           "services": [
             {
               "name": "spring-petclinic",
@@ -1804,53 +1813,53 @@
           "detected_language": "java/spring-boot,java"
         },
         "estimate": {
-          "total_low": 73,
-          "total_expected": 105,
-          "total_high": 148,
+          "total_low": 217,
+          "total_expected": 315,
+          "total_high": 437,
           "processor_breakdown": [
             {
               "processor": "span-metrics-count",
-              "low": 32,
-              "expected": 48,
-              "high": 68,
+              "low": 96,
+              "expected": 144,
+              "high": 202,
               "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
             },
             {
               "processor": "span-metrics-latency",
-              "low": 32,
-              "expected": 48,
-              "high": 68,
+              "low": 96,
+              "expected": 144,
+              "high": 202,
               "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
             },
             {
               "processor": "service-graph",
-              "low": 8,
-              "expected": 8,
-              "high": 10,
+              "low": 24,
+              "expected": 24,
+              "high": 29,
               "formula": "directed service edges x environments x instance label values x (request_total + failed_total + 2 x (native histogram series))"
             },
             {
               "processor": "host-info",
               "low": 1,
-              "expected": 1,
-              "high": 2,
+              "expected": 3,
+              "high": 4,
               "formula": "unique service/environment/instance combinations, target_info style"
             }
           ],
           "component_breakdown": [
             {
               "component": "span-metrics",
-              "expected": 96,
+              "expected": 288,
               "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
             },
             {
               "component": "service-graph",
-              "expected": 8,
+              "expected": 24,
               "formula": "directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses native histogram series"
             },
             {
               "component": "host-info",
-              "expected": 1,
+              "expected": 3,
               "formula": "unique service/environment/instance combinations, target_info style"
             }
           ],
@@ -1862,7 +1871,7 @@
               "method": "GET",
               "route": "/",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1871,7 +1880,7 @@
               "method": "GET",
               "route": "/oups",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1880,7 +1889,7 @@
               "method": "GET",
               "route": "/owners",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1889,16 +1898,7 @@
               "method": "GET",
               "route": "/owners/find",
               "kind": "SERVER",
-              "expected": 6
-            },
-            {
-              "service": "spring-petclinic",
-              "repository": "Spring Petclinic",
-              "protocol": "http",
-              "method": "POST",
-              "route": "/owners/new",
-              "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1907,7 +1907,16 @@
               "method": "GET",
               "route": "/owners/new",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/new",
+              "kind": "SERVER",
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1916,16 +1925,7 @@
               "method": "GET",
               "route": "/owners/{ownerId}",
               "kind": "SERVER",
-              "expected": 6
-            },
-            {
-              "service": "spring-petclinic",
-              "repository": "Spring Petclinic",
-              "protocol": "http",
-              "method": "GET",
-              "route": "/owners/{ownerId}/edit",
-              "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1934,7 +1934,16 @@
               "method": "POST",
               "route": "/owners/{ownerId}/edit",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/edit",
+              "kind": "SERVER",
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1943,7 +1952,7 @@
               "method": "GET",
               "route": "/owners/{ownerId}/pets/new",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1952,7 +1961,7 @@
               "method": "POST",
               "route": "/owners/{ownerId}/pets/new",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1961,7 +1970,7 @@
               "method": "POST",
               "route": "/owners/{ownerId}/pets/{petId}/edit",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1970,7 +1979,7 @@
               "method": "GET",
               "route": "/owners/{ownerId}/pets/{petId}/edit",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1979,7 +1988,7 @@
               "method": "POST",
               "route": "/owners/{ownerId}/pets/{petId}/visits/new",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1988,7 +1997,7 @@
               "method": "GET",
               "route": "/owners/{ownerId}/pets/{petId}/visits/new",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             },
             {
               "service": "spring-petclinic",
@@ -1997,14 +2006,14 @@
               "method": "GET",
               "route": "/vets.html",
               "kind": "SERVER",
-              "expected": 6
+              "expected": 18
             }
           ],
           "service_breakdown": [
             {
               "service": "spring-petclinic",
               "repository": "Spring Petclinic",
-              "expected": 105
+              "expected": 315
             }
           ],
           "uncertainty_model": [
@@ -2071,6 +2080,7 @@
             "Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
             "Host info sizing assumes one target-info style series per service instance and environment.",
             "Named environments are modeled as: prod.",
+            "2 service-specific environment/instance override(s) are applied before estimating processor series.",
             "Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by 1 instance value(s) per service.",
             "Histogram type native is the default and uses one native histogram series per latency label set; --histogram-buckets is ignored unless --histogram-type=classic or both.",
             "CLIENT and PRODUCER span kinds are excluded from span-metric operation sizing by default.",
