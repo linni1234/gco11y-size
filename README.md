@@ -10,6 +10,8 @@ The tool is intentionally offline by default. Source code can forecast operation
 go run ./cmd/gco11y-size scan --repo ./path/to/java-repo
 ```
 
+Every scan writes a workspace report. With one `--repo`, the workspace contains one repository entry; repeat `--repo` or use `--input` when you want multiple repositories in the same report.
+
 `--repo` accepts a local folder or a Git remote:
 
 ```sh
@@ -18,7 +20,7 @@ go run ./cmd/gco11y-size scan --repo git@gitlab.com:acme/checkout-service.git --
 go run ./cmd/gco11y-size scan --repo github.com/acme/checkout-service
 ```
 
-This writes:
+By default this writes:
 
 - `report.html`: standalone workspace sizing report
 - `report.json`: machine-readable workspace report
