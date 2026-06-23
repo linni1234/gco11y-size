@@ -10,7 +10,7 @@ import (
 	"github.com/nilslindholm/metricgenerationsizer/internal/model"
 )
 
-func TestRunScanLocalRepoWritesSourceMetadata(t *testing.T) {
+func TestRunScanLocalRepoWritesWorkspaceReport(t *testing.T) {
 	outDir := t.TempDir()
 	htmlPath := filepath.Join(outDir, "report.html")
 	jsonPath := filepath.Join(outDir, "report.json")
@@ -27,10 +27,14 @@ func TestRunScanLocalRepoWritesSourceMetadata(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile returned error: %v", err)
 	}
-	var report model.Report
-	if err := json.Unmarshal(data, &report); err != nil {
+	var workspace model.WorkspaceReport
+	if err := json.Unmarshal(data, &workspace); err != nil {
 		t.Fatalf("Unmarshal returned error: %v", err)
 	}
+	if got, want := len(workspace.Repositories), 1; got != want {
+		t.Fatalf("repository count = %d, want %d", got, want)
+	}
+	report := workspace.Repositories[0].Report
 	if report.Source.Type != "local" {
 		t.Fatalf("source type = %q, want local", report.Source.Type)
 	}
@@ -42,6 +46,9 @@ func TestRunScanLocalRepoWritesSourceMetadata(t *testing.T) {
 	}
 	if !report.Options.InstanceLabelEnabled {
 		t.Fatalf("instance label enabled = false, want true")
+	}
+	if workspace.Aggregate.Estimate.TotalExpected <= 0 {
+		t.Fatalf("aggregate expected = %d, want > 0", workspace.Aggregate.Estimate.TotalExpected)
 	}
 	if _, err := os.Stat(htmlPath); err != nil {
 		t.Fatalf("HTML report was not written: %v", err)
@@ -65,11 +72,14 @@ func TestRunScanInstanceLabelDisabled(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile returned error: %v", err)
 	}
-	var report model.Report
-	if err := json.Unmarshal(data, &report); err != nil {
+	var workspace model.WorkspaceReport
+	if err := json.Unmarshal(data, &workspace); err != nil {
 		t.Fatalf("Unmarshal returned error: %v", err)
 	}
-	if report.Options.InstanceLabelEnabled {
+	if workspace.Options.InstanceLabelEnabled {
+		t.Fatalf("workspace instance label enabled = true, want false")
+	}
+	if workspace.Repositories[0].Report.Options.InstanceLabelEnabled {
 		t.Fatalf("instance label enabled = true, want false")
 	}
 }
@@ -91,12 +101,15 @@ func TestRunScanDeprecatedNativeHistogramsAliasSetsBoth(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile returned error: %v", err)
 	}
-	var report model.Report
-	if err := json.Unmarshal(data, &report); err != nil {
+	var workspace model.WorkspaceReport
+	if err := json.Unmarshal(data, &workspace); err != nil {
 		t.Fatalf("Unmarshal returned error: %v", err)
 	}
-	if report.Options.HistogramType != "both" {
-		t.Fatalf("histogram type = %q, want both", report.Options.HistogramType)
+	if workspace.Options.HistogramType != "both" {
+		t.Fatalf("histogram type = %q, want both", workspace.Options.HistogramType)
+	}
+	if workspace.Repositories[0].Report.Options.HistogramType != "both" {
+		t.Fatalf("repo histogram type = %q, want both", workspace.Repositories[0].Report.Options.HistogramType)
 	}
 }
 

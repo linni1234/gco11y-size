@@ -20,8 +20,8 @@ go run ./cmd/gco11y-size scan --repo github.com/acme/checkout-service
 
 This writes:
 
-- `report.html`: standalone sizing report
-- `report.json`: machine-readable report
+- `report.html`: standalone workspace sizing report
+- `report.json`: machine-readable workspace report
 
 Example with sizing controls:
 
@@ -43,9 +43,9 @@ go run ./cmd/gco11y-size scan \
 
 Remote repositories are shallow-cloned into a temporary worktree and deleted after the report is written. Use `--keep-worktree` to retain the clone for debugging, and `--workdir <path>` to choose the parent directory used for temporary worktrees.
 
-## Multi-Repo Workspace Scans
+## Workspace Scans
 
-Repeat `--repo` to scan multiple local folders or Git remotes in one workspace report:
+Every scan produces a workspace report. A single repository is represented as a workspace with one repository entry; repeat `--repo` to scan multiple local folders or Git remotes in the same workspace:
 
 ```sh
 go run ./cmd/gco11y-size scan \
@@ -61,7 +61,7 @@ go run ./cmd/gco11y-size scan \
   --json workspace.json
 ```
 
-When more than one repo is provided, the JSON output is a workspace report. The HTML report opens on a workspace overview and includes tabs for each repository so you can drill into the same processor, service, operation, edge, and risk details as a single-repo report.
+The HTML report opens on a workspace overview and includes a left-menu entry for each repository. Expanding a repository reveals submenu links for source metadata, processors, services, top operations, and service graph details.
 
 Workspace totals are estimated from a merged analysis rather than a naive sum of per-repo totals. The aggregate layer deduplicates operations by service, span kind, protocol, method/action, and normalized operation name, and deduplicates service graph edges by source service, target service, and protocol.
 

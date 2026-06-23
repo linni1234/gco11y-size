@@ -62,8 +62,8 @@ func runScan(args []string) error {
 	keepWorktree := flags.Bool("keep-worktree", false, "keep temporary remote Git worktree after scanning")
 	gatewayMethodCount := flags.Int("gateway-method-count", 0, "optional method multiplier for Spring Cloud Gateway ANY routes when http.method is a span metric dimension")
 	gatewayMethods := flags.String("gateway-methods", "", "optional comma-separated HTTP methods for Spring Cloud Gateway ANY routes, for example GET,POST,PUT,DELETE,PATCH")
-	outHTML := flags.String("out", "report.html", "standalone HTML report path; use empty string to skip")
-	outJSON := flags.String("json", "report.json", "JSON report path; use empty string to skip")
+	outHTML := flags.String("out", "report.html", "workspace HTML report path; use empty string to skip")
+	outJSON := flags.String("json", "report.json", "workspace JSON report path; use empty string to skip")
 	processors := flags.String("processors", defaultProcessors, "comma-separated processors: span-metrics-count,span-metrics-latency,span-metrics-size,service-graph,host-info")
 	histogramType := flags.String("histogram-type", config.HistogramTypeNative, "histogram implementation for span metrics and service graphs: native, classic, or both")
 	histogramBuckets := flags.Int("histogram-buckets", 14, "emitted classic histogram _bucket series per label set for --histogram-type=classic or both; include +Inf")
@@ -138,9 +138,6 @@ func runScan(args []string) error {
 	}
 	if len(repoInputs) == 0 {
 		repoInputs = []model.RepositoryInput{{Repo: "."}}
-	}
-	if len(repoInputs) == 1 && *input == "" {
-		return runSingleScan(repoInputs[0], defaultOpts, *outHTML, *outJSON)
 	}
 	return runWorkspaceScan(repoInputs, defaultOpts, *outHTML, *outJSON)
 }
@@ -259,30 +256,6 @@ func repositoryInputsFromFlags(repos []string) []model.RepositoryInput {
 		out = append(out, model.RepositoryInput{Repo: repo})
 	}
 	return out
-}
-
-func runSingleScan(repoInput model.RepositoryInput, defaultOpts model.Options, htmlPath string, jsonPath string) error {
-	generatedAt := time.Now().UTC()
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-	calibration := config.QueryGrafanaCloud(ctx, defaultOpts.GrafanaQuery)
-	repoReport, err := scanRepository(repoInput, defaultOpts, generatedAt, false, calibration)
-	if err != nil {
-		return err
-	}
-	finalReport := repoReport.Report
-	if jsonPath != "" {
-		if err := report.WriteJSON(jsonPath, finalReport); err != nil {
-			return err
-		}
-	}
-	if htmlPath != "" {
-		if err := report.WriteHTML(htmlPath, finalReport); err != nil {
-			return err
-		}
-	}
-	printSummary(finalReport, htmlPath, jsonPath)
-	return nil
 }
 
 func runWorkspaceScan(repoInputs []model.RepositoryInput, defaultOpts model.Options, htmlPath string, jsonPath string) error {
@@ -807,34 +780,6 @@ func applyExplicitCLIOverrides(opts model.Options, cli model.Options, visited ma
 		opts.GrafanaQuery = cli.GrafanaQuery
 	}
 	return opts
-}
-
-func printSummary(r model.Report, htmlPath string, jsonPath string) {
-	if r.Source.Type == source.TypeGit {
-		ref := r.Source.ResolvedRef
-		if len(ref) > 12 {
-			ref = ref[:12]
-		}
-		fmt.Printf("Source: %s %s", r.Source.Provider, r.Source.Original)
-		if ref != "" {
-			fmt.Printf(" @ %s", ref)
-		}
-		if r.Source.WorktreeRetained {
-			fmt.Printf(" (worktree kept at %s)", r.Source.ResolvedPath)
-		}
-		fmt.Println()
-	}
-	fmt.Printf("Scanned %d service(s), %d operation(s), %d service-graph edge(s).\n", len(r.Analysis.Services), len(r.Analysis.Operations), len(r.Analysis.Edges))
-	fmt.Printf("Estimated active series: %d expected (%d low / %d high).\n", r.Estimate.TotalExpected, r.Estimate.TotalLow, r.Estimate.TotalHigh)
-	if htmlPath != "" {
-		fmt.Printf("HTML report: %s\n", displayPath(htmlPath))
-	}
-	if jsonPath != "" {
-		fmt.Printf("JSON report: %s\n", displayPath(jsonPath))
-	}
-	if len(r.Analysis.Risks) > 0 {
-		fmt.Printf("Detected %d cardinality or static-analysis risk(s).\n", len(r.Analysis.Risks))
-	}
 }
 
 func displayPath(path string) string {
