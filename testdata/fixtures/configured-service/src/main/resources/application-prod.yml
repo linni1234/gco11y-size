@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: configured-service
+otel:
+  service:
+    name: configured-service
+processors:
+  - span_metrics
+  - service_graph
+dimensions: [tenant.id, http.route]
+
