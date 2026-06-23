@@ -1,7 +1,5 @@
 .gocache/
 .DS_Store
-example/workspace.html
-example/workspace.json
 example/.DS_Store
 report.html
 report.json

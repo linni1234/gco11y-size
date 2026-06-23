@@ -1,0 +1,2084 @@
+{
+  "version": "0.3.0",
+  "generated_at": "2026-06-23T22:34:55.876743Z",
+  "options": {
+    "repo": "workspace",
+    "keep_worktree": false,
+    "profile": "grafana-cloud-app-o11y",
+    "processors": [
+      "span-metrics-count",
+      "span-metrics-latency",
+      "service-graph",
+      "host-info"
+    ],
+    "histogram_buckets": 14,
+    "histogram_type": "native",
+    "status_values": 3,
+    "environments": 1,
+    "environment_names": [
+      "prod"
+    ],
+    "instances_per_service": 1,
+    "instance_label_enabled": true,
+    "service_overrides": [
+      {
+        "repository": "Spring Real Example App",
+        "service": "spring-boot-realworld-example-app",
+        "environments": [
+          "prod"
+        ],
+        "environment_count": 1,
+        "instances_per_service": 1
+      },
+      {
+        "repository": "Spring Petclinic",
+        "service": "spring-petclinic",
+        "environments": [
+          "prod"
+        ],
+        "environment_count": 1,
+        "instances_per_service": 1
+      }
+    ],
+    "include_client_producer": false,
+    "grafana_query": false
+  },
+  "aggregate": {
+    "version": "0.3.0",
+    "generated_at": "2026-06-23T22:34:55.876743Z",
+    "options": {
+      "repo": "workspace",
+      "keep_worktree": false,
+      "profile": "grafana-cloud-app-o11y",
+      "processors": [
+        "span-metrics-count",
+        "span-metrics-latency",
+        "service-graph",
+        "host-info"
+      ],
+      "histogram_buckets": 14,
+      "histogram_type": "native",
+      "status_values": 3,
+      "environments": 1,
+      "environment_names": [
+        "prod"
+      ],
+      "instances_per_service": 1,
+      "instance_label_enabled": true,
+      "service_overrides": [
+        {
+          "repository": "Spring Real Example App",
+          "service": "spring-boot-realworld-example-app",
+          "environments": [
+            "prod"
+          ],
+          "environment_count": 1,
+          "instances_per_service": 1
+        },
+        {
+          "repository": "Spring Petclinic",
+          "service": "spring-petclinic",
+          "environments": [
+            "prod"
+          ],
+          "environment_count": 1,
+          "instances_per_service": 1
+        }
+      ],
+      "include_client_producer": false,
+      "grafana_query": false
+    },
+    "source": {
+      "original": "workspace",
+      "type": "workspace",
+      "resolved_path": "workspace",
+      "worktree_temporary": false,
+      "worktree_retained": true
+    },
+    "analysis": {
+      "repository": "workspace",
+      "generated_at": "2026-06-23T22:34:57.813092Z",
+      "services": [
+        {
+          "name": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "root": ".",
+          "source": "path",
+          "operation_count": 15,
+          "edge_count": 0
+        },
+        {
+          "name": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "root": ".",
+          "source": "path",
+          "operation_count": 16,
+          "edge_count": 2
+        }
+      ],
+      "operations": [
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/",
+          "handler": "ArticleFavoriteApi.unfavoriteArticle",
+          "source": "src/main/java/io/spring/api/ArticleFavoriteApi.java, src/main/java/io/spring/api/ProfileApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/",
+          "handler": "ProfileApi.getProfile",
+          "source": "src/main/java/io/spring/api/ProfileApi.java, src/main/java/io/spring/api/TagsApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/",
+          "handler": "ArticleFavoriteApi.favoriteArticle",
+          "source": "src/main/java/io/spring/api/ArticleFavoriteApi.java, src/main/java/io/spring/api/ProfileApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles",
+          "handler": "ArticlesApi.createArticle",
+          "source": "src/main/java/io/spring/api/ArticlesApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles",
+          "handler": "ArticlesApi.getFeed",
+          "source": "src/main/java/io/spring/api/ArticlesApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "PUT",
+          "route": "/articles/{slug}",
+          "handler": "ArticleApi.updateArticle",
+          "source": "src/main/java/io/spring/api/ArticleApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/articles/{slug}",
+          "handler": "ArticleApi.deleteArticle",
+          "source": "src/main/java/io/spring/api/ArticleApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles/{slug}",
+          "handler": "ArticleApi.article",
+          "source": "src/main/java/io/spring/api/ArticleApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles/{slug}/comments",
+          "handler": "CommentsApi.createComment",
+          "source": "src/main/java/io/spring/api/CommentsApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles/{slug}/comments",
+          "handler": "CommentsApi.getComments",
+          "source": "src/main/java/io/spring/api/CommentsApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/articles/{slug}/comments/{id}",
+          "handler": "CommentsApi.deleteComment",
+          "source": "src/main/java/io/spring/api/CommentsApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "PUT",
+          "route": "/user",
+          "handler": "CurrentUserApi.updateProfile",
+          "source": "src/main/java/io/spring/api/CurrentUserApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/user",
+          "handler": "CurrentUserApi.currentUser",
+          "source": "src/main/java/io/spring/api/CurrentUserApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "ANY",
+          "route": "/users",
+          "handler": "UsersApi.createUser",
+          "source": "src/main/java/io/spring/api/UsersApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "ANY",
+          "route": "/users/login",
+          "handler": "UsersApi.userLogin",
+          "source": "src/main/java/io/spring/api/UsersApi.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/",
+          "handler": "WelcomeController.welcome",
+          "source": "src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/oups",
+          "handler": "CrashController.triggerException",
+          "source": "src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners",
+          "handler": "OwnerController.processFindForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/find",
+          "handler": "OwnerController.initFindForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/new",
+          "handler": "OwnerController.initCreationForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/new",
+          "handler": "OwnerController.processCreationForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}",
+          "handler": "OwnerController.showOwner",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/edit",
+          "handler": "OwnerController.processUpdateOwnerForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/edit",
+          "handler": "OwnerController.initUpdateOwnerForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/new",
+          "handler": "PetController.initCreationForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/new",
+          "handler": "PetController.processCreationForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/{petId}/edit",
+          "handler": "PetController.initUpdateForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/{petId}/edit",
+          "handler": "PetController.processUpdateForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+          "handler": "VisitController.processNewVisitForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+          "handler": "VisitController.initNewVisitForm",
+          "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "kind": "SERVER",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/vets.html",
+          "handler": "VetController.showVetList",
+          "source": "src/main/java/org/springframework/samples/petclinic/vet/VetController.java",
+          "confidence": "high",
+          "detectors": [
+            "spring-mvc"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source_service": "spring-petclinic",
+          "target_service": "github.com",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "source": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+          "confidence": "medium"
+        },
+        {
+          "source_service": "spring-petclinic",
+          "target_service": "www.apache.org",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "source": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+          "confidence": "medium"
+        }
+      ],
+      "config_findings": [
+        {
+          "kind": "environment",
+          "name": "profile",
+          "value": "test",
+          "source": "src/main/resources/application-test.properties",
+          "repository": "Spring Real Example App"
+        },
+        {
+          "kind": "environment",
+          "name": "deployment.environment",
+          "value": "-",
+          "source": "docker-compose.yml",
+          "repository": "Spring Petclinic"
+        },
+        {
+          "kind": "environment",
+          "name": "deployment.environment",
+          "value": "-",
+          "source": "docker-compose.yml",
+          "repository": "Spring Petclinic"
+        },
+        {
+          "kind": "environment",
+          "name": "profile",
+          "value": "mysql",
+          "source": "src/main/resources/application-mysql.properties",
+          "repository": "Spring Petclinic"
+        },
+        {
+          "kind": "environment",
+          "name": "profile",
+          "value": "postgres",
+          "source": "src/main/resources/application-postgres.properties",
+          "repository": "Spring Petclinic"
+        }
+      ],
+      "detected_language": "java/spring-boot, java"
+    },
+    "estimate": {
+      "total_low": 134,
+      "total_expected": 196,
+      "total_high": 276,
+      "processor_breakdown": [
+        {
+          "processor": "span-metrics-count",
+          "low": 62,
+          "expected": 93,
+          "high": 131,
+          "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
+        },
+        {
+          "processor": "span-metrics-latency",
+          "low": 62,
+          "expected": 93,
+          "high": 131,
+          "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
+        },
+        {
+          "processor": "service-graph",
+          "low": 8,
+          "expected": 8,
+          "high": 10,
+          "formula": "directed service edges x environments x instance label values x (request_total + failed_total + 2 x (native histogram series))"
+        },
+        {
+          "processor": "host-info",
+          "low": 2,
+          "expected": 2,
+          "high": 4,
+          "formula": "unique service/environment/instance combinations, target_info style"
+        }
+      ],
+      "component_breakdown": [
+        {
+          "component": "span-metrics",
+          "expected": 186,
+          "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
+        },
+        {
+          "component": "service-graph",
+          "expected": 8,
+          "formula": "directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses native histogram series"
+        },
+        {
+          "component": "host-info",
+          "expected": 2,
+          "formula": "unique service/environment/instance combinations, target_info style"
+        }
+      ],
+      "operation_contributors": [
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles/{slug}",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/articles/{slug}",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "PUT",
+          "route": "/articles/{slug}",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/articles/{slug}/comments",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/articles/{slug}/comments",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "DELETE",
+          "route": "/articles/{slug}/comments/{id}",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "PUT",
+          "route": "/user",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/user",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "ANY",
+          "route": "/users",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "protocol": "http",
+          "method": "ANY",
+          "route": "/users/login",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/oups",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "GET",
+          "route": "/owners/find",
+          "kind": "SERVER",
+          "expected": 6
+        },
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "protocol": "http",
+          "method": "POST",
+          "route": "/owners/new",
+          "kind": "SERVER",
+          "expected": 6
+        }
+      ],
+      "service_breakdown": [
+        {
+          "service": "spring-petclinic",
+          "repository": "Spring Petclinic",
+          "expected": 105
+        },
+        {
+          "service": "spring-boot-realworld-example-app",
+          "repository": "Spring Real Example App",
+          "expected": 91
+        }
+      ],
+      "uncertainty_model": [
+        {
+          "scope": "span-metrics",
+          "formula": "series = operations x environments x status_values(bound) x dim_cardinality(bound) x instance_label_values x histogram_factor",
+          "histogram_factors": [
+            {
+              "metric": "span-metrics-count",
+              "factor": "1 count counter",
+              "value": 1
+            },
+            {
+              "metric": "span-metrics-size",
+              "factor": "1 size series",
+              "value": 1
+            },
+            {
+              "metric": "span-metrics-latency",
+              "factor": "native histogram series",
+              "value": 1
+            }
+          ],
+          "bounds": [
+            {
+              "bound": "low",
+              "status_rule": "status_values - 1",
+              "status_values": 2,
+              "dimension_rule": "reduced",
+              "dimension_multiplier": 1,
+              "buffer": "none",
+              "buffer_multiplier": 1
+            },
+            {
+              "bound": "expected",
+              "status_rule": "status_values",
+              "status_values": 3,
+              "dimension_rule": "configured",
+              "dimension_multiplier": 1,
+              "buffer": "none",
+              "buffer_multiplier": 1
+            },
+            {
+              "bound": "high",
+              "status_rule": "status_values + 1",
+              "status_values": 4,
+              "dimension_rule": "inflated",
+              "dimension_multiplier": 1,
+              "buffer": "+5%",
+              "buffer_multiplier": 1.05
+            }
+          ],
+          "notes": [
+            "Bounds assume standard OTel status codes (ok, error, unset). Custom status dimensions are not accounted for and may exceed the high estimate.",
+            "Count and size span metrics use histogram_factor 1; latency span metrics use the selected histogram type.",
+            "Instance label values are modeled as 1 for generated trace metrics."
+          ]
+        }
+      ],
+      "assumptions": [
+        "Application calls are modeled as unique App O11y operations/endpoints, not request volume.",
+        "One included operation is one unique span-name label set: service + operation/span name + span kind, before environment/status/custom dimensions are applied.",
+        "Span metric labels are multiplied by 1 environment(s), 3 status value(s), and custom dimension cardinality 1 unless service-specific overrides apply.",
+        "Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
+        "Host info sizing assumes one target-info style series per service instance and environment.",
+        "Named environments are modeled as: prod.",
+        "2 service-specific environment/instance override(s) are applied before estimating processor series.",
+        "Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by 1 instance value(s) per service.",
+        "Histogram type native is the default and uses one native histogram series per latency label set; --histogram-buckets is ignored unless --histogram-type=classic or both.",
+        "CLIENT and PRODUCER span kinds are excluded from span-metric operation sizing by default.",
+        "Spring Cloud Gateway ANY routes are counted once unless gateway method expansion is enabled.",
+        "No custom span dimensions were configured for the estimate."
+      ],
+      "cloud_calibration": {
+        "configured": false,
+        "queried": false,
+        "query": "count({__name__=~\"traces_spanmetrics.*|traces_service_graph.*|traces_target_info|target_info\"})",
+        "message": "Grafana Cloud Prometheus environment variables were not fully configured.",
+        "observed_at": "0001-01-01T00:00:00Z"
+      }
+    }
+  },
+  "repositories": [
+    {
+      "name": "Spring Real Example App",
+      "report": {
+        "version": "0.3.0",
+        "generated_at": "2026-06-23T22:34:55.876743Z",
+        "options": {
+          "repo": "https://github.com/gothinkster/spring-boot-realworld-example-app",
+          "keep_worktree": false,
+          "profile": "grafana-cloud-app-o11y",
+          "processors": [
+            "span-metrics-count",
+            "span-metrics-latency",
+            "service-graph",
+            "host-info"
+          ],
+          "histogram_buckets": 14,
+          "histogram_type": "native",
+          "status_values": 3,
+          "environments": 1,
+          "environment_names": [
+            "prod"
+          ],
+          "instances_per_service": 1,
+          "instance_label_enabled": true,
+          "include_client_producer": false,
+          "grafana_query": false
+        },
+        "source": {
+          "original": "https://github.com/gothinkster/spring-boot-realworld-example-app",
+          "type": "git",
+          "provider": "github",
+          "clone_url": "https://github.com/gothinkster/spring-boot-realworld-example-app",
+          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-28823435/spring-boot-realworld-example-app",
+          "resolved_ref": "ee17e31aafe733d98c4853c8b9a74d7f2f6c924a",
+          "worktree_temporary": true,
+          "worktree_retained": false
+        },
+        "analysis": {
+          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-28823435/spring-boot-realworld-example-app",
+          "generated_at": "2026-06-23T22:34:56.839682Z",
+          "services": [
+            {
+              "name": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "root": ".",
+              "source": "path",
+              "operation_count": 15,
+              "edge_count": 0
+            }
+          ],
+          "operations": [
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/",
+              "handler": "ArticleFavoriteApi.unfavoriteArticle",
+              "source": "src/main/java/io/spring/api/ArticleFavoriteApi.java, src/main/java/io/spring/api/ProfileApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/",
+              "handler": "ProfileApi.getProfile",
+              "source": "src/main/java/io/spring/api/ProfileApi.java, src/main/java/io/spring/api/TagsApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/",
+              "handler": "ArticleFavoriteApi.favoriteArticle",
+              "source": "src/main/java/io/spring/api/ArticleFavoriteApi.java, src/main/java/io/spring/api/ProfileApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles",
+              "handler": "ArticlesApi.getFeed",
+              "source": "src/main/java/io/spring/api/ArticlesApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/articles",
+              "handler": "ArticlesApi.createArticle",
+              "source": "src/main/java/io/spring/api/ArticlesApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/articles/{slug}",
+              "handler": "ArticleApi.deleteArticle",
+              "source": "src/main/java/io/spring/api/ArticleApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}",
+              "handler": "ArticleApi.article",
+              "source": "src/main/java/io/spring/api/ArticleApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "PUT",
+              "route": "/articles/{slug}",
+              "handler": "ArticleApi.updateArticle",
+              "source": "src/main/java/io/spring/api/ArticleApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}/comments",
+              "handler": "CommentsApi.getComments",
+              "source": "src/main/java/io/spring/api/CommentsApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/articles/{slug}/comments",
+              "handler": "CommentsApi.createComment",
+              "source": "src/main/java/io/spring/api/CommentsApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/articles/{slug}/comments/{id}",
+              "handler": "CommentsApi.deleteComment",
+              "source": "src/main/java/io/spring/api/CommentsApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/user",
+              "handler": "CurrentUserApi.currentUser",
+              "source": "src/main/java/io/spring/api/CurrentUserApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "PUT",
+              "route": "/user",
+              "handler": "CurrentUserApi.updateProfile",
+              "source": "src/main/java/io/spring/api/CurrentUserApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "ANY",
+              "route": "/users",
+              "handler": "UsersApi.createUser",
+              "source": "src/main/java/io/spring/api/UsersApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "ANY",
+              "route": "/users/login",
+              "handler": "UsersApi.userLogin",
+              "source": "src/main/java/io/spring/api/UsersApi.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            }
+          ],
+          "edges": [],
+          "config_findings": [
+            {
+              "kind": "environment",
+              "name": "profile",
+              "value": "test",
+              "source": "src/main/resources/application-test.properties",
+              "repository": "Spring Real Example App"
+            }
+          ],
+          "detected_language": "java/spring-boot,java"
+        },
+        "estimate": {
+          "total_low": 61,
+          "total_expected": 91,
+          "total_high": 128,
+          "processor_breakdown": [
+            {
+              "processor": "span-metrics-count",
+              "low": 30,
+              "expected": 45,
+              "high": 63,
+              "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
+            },
+            {
+              "processor": "span-metrics-latency",
+              "low": 30,
+              "expected": 45,
+              "high": 63,
+              "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
+            },
+            {
+              "processor": "service-graph",
+              "low": 0,
+              "expected": 0,
+              "high": 0,
+              "formula": "directed service edges x environments x instance label values x (request_total + failed_total + 2 x (native histogram series))"
+            },
+            {
+              "processor": "host-info",
+              "low": 1,
+              "expected": 1,
+              "high": 2,
+              "formula": "unique service/environment/instance combinations, target_info style"
+            }
+          ],
+          "component_breakdown": [
+            {
+              "component": "span-metrics",
+              "expected": 90,
+              "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
+            },
+            {
+              "component": "service-graph",
+              "expected": 0,
+              "formula": "directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses native histogram series"
+            },
+            {
+              "component": "host-info",
+              "expected": 1,
+              "formula": "unique service/environment/instance combinations, target_info style"
+            }
+          ],
+          "operation_contributors": [
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/articles",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/articles/{slug}",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "PUT",
+              "route": "/articles/{slug}",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/articles/{slug}/comments",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/articles/{slug}/comments",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "DELETE",
+              "route": "/articles/{slug}/comments/{id}",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "PUT",
+              "route": "/user",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/user",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "ANY",
+              "route": "/users",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "protocol": "http",
+              "method": "ANY",
+              "route": "/users/login",
+              "kind": "SERVER",
+              "expected": 6
+            }
+          ],
+          "service_breakdown": [
+            {
+              "service": "spring-boot-realworld-example-app",
+              "repository": "Spring Real Example App",
+              "expected": 91
+            }
+          ],
+          "uncertainty_model": [
+            {
+              "scope": "span-metrics",
+              "formula": "series = operations x environments x status_values(bound) x dim_cardinality(bound) x instance_label_values x histogram_factor",
+              "histogram_factors": [
+                {
+                  "metric": "span-metrics-count",
+                  "factor": "1 count counter",
+                  "value": 1
+                },
+                {
+                  "metric": "span-metrics-size",
+                  "factor": "1 size series",
+                  "value": 1
+                },
+                {
+                  "metric": "span-metrics-latency",
+                  "factor": "native histogram series",
+                  "value": 1
+                }
+              ],
+              "bounds": [
+                {
+                  "bound": "low",
+                  "status_rule": "status_values - 1",
+                  "status_values": 2,
+                  "dimension_rule": "reduced",
+                  "dimension_multiplier": 1,
+                  "buffer": "none",
+                  "buffer_multiplier": 1
+                },
+                {
+                  "bound": "expected",
+                  "status_rule": "status_values",
+                  "status_values": 3,
+                  "dimension_rule": "configured",
+                  "dimension_multiplier": 1,
+                  "buffer": "none",
+                  "buffer_multiplier": 1
+                },
+                {
+                  "bound": "high",
+                  "status_rule": "status_values + 1",
+                  "status_values": 4,
+                  "dimension_rule": "inflated",
+                  "dimension_multiplier": 1,
+                  "buffer": "+5%",
+                  "buffer_multiplier": 1.05
+                }
+              ],
+              "notes": [
+                "Bounds assume standard OTel status codes (ok, error, unset). Custom status dimensions are not accounted for and may exceed the high estimate.",
+                "Count and size span metrics use histogram_factor 1; latency span metrics use the selected histogram type.",
+                "Instance label values are modeled as 1 for generated trace metrics."
+              ]
+            }
+          ],
+          "assumptions": [
+            "Application calls are modeled as unique App O11y operations/endpoints, not request volume.",
+            "One included operation is one unique span-name label set: service + operation/span name + span kind, before environment/status/custom dimensions are applied.",
+            "Span metric labels are multiplied by 1 environment(s), 3 status value(s), and custom dimension cardinality 1 unless service-specific overrides apply.",
+            "Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
+            "Host info sizing assumes one target-info style series per service instance and environment.",
+            "Named environments are modeled as: prod.",
+            "Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by 1 instance value(s) per service.",
+            "Histogram type native is the default and uses one native histogram series per latency label set; --histogram-buckets is ignored unless --histogram-type=classic or both.",
+            "CLIENT and PRODUCER span kinds are excluded from span-metric operation sizing by default.",
+            "Spring Cloud Gateway ANY routes are counted once unless gateway method expansion is enabled.",
+            "No custom span dimensions were configured for the estimate."
+          ]
+        }
+      }
+    },
+    {
+      "name": "Spring Petclinic",
+      "report": {
+        "version": "0.3.0",
+        "generated_at": "2026-06-23T22:34:55.876743Z",
+        "options": {
+          "repo": "https://github.com/spring-projects/spring-petclinic",
+          "keep_worktree": false,
+          "profile": "grafana-cloud-app-o11y",
+          "processors": [
+            "span-metrics-count",
+            "span-metrics-latency",
+            "service-graph",
+            "host-info"
+          ],
+          "histogram_buckets": 14,
+          "histogram_type": "native",
+          "status_values": 3,
+          "environments": 1,
+          "environment_names": [
+            "prod"
+          ],
+          "instances_per_service": 1,
+          "instance_label_enabled": true,
+          "include_client_producer": false,
+          "grafana_query": false
+        },
+        "source": {
+          "original": "https://github.com/spring-projects/spring-petclinic",
+          "type": "git",
+          "provider": "github",
+          "clone_url": "https://github.com/spring-projects/spring-petclinic",
+          "resolved_path": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-214649669/spring-petclinic",
+          "resolved_ref": "b3ee2c53e76e9267f03551a7cd36b0983c859c56",
+          "worktree_temporary": true,
+          "worktree_retained": false
+        },
+        "analysis": {
+          "repository": "/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-214649669/spring-petclinic",
+          "generated_at": "2026-06-23T22:34:57.804558Z",
+          "services": [
+            {
+              "name": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "root": ".",
+              "source": "path",
+              "operation_count": 16,
+              "edge_count": 2
+            }
+          ],
+          "operations": [
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/",
+              "handler": "WelcomeController.welcome",
+              "source": "src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/oups",
+              "handler": "CrashController.triggerException",
+              "source": "src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners",
+              "handler": "OwnerController.processFindForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/find",
+              "handler": "OwnerController.initFindForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/new",
+              "handler": "OwnerController.initCreationForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/new",
+              "handler": "OwnerController.processCreationForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}",
+              "handler": "OwnerController.showOwner",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/edit",
+              "handler": "OwnerController.initUpdateOwnerForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/edit",
+              "handler": "OwnerController.processUpdateOwnerForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/new",
+              "handler": "PetController.initCreationForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/new",
+              "handler": "PetController.processCreationForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/{petId}/edit",
+              "handler": "PetController.initUpdateForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/{petId}/edit",
+              "handler": "PetController.processUpdateForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+              "handler": "VisitController.initNewVisitForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+              "handler": "VisitController.processNewVisitForm",
+              "source": "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "kind": "SERVER",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/vets.html",
+              "handler": "VetController.showVetList",
+              "source": "src/main/java/org/springframework/samples/petclinic/vet/VetController.java",
+              "confidence": "high",
+              "detectors": [
+                "spring-mvc"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "source_service": "spring-petclinic",
+              "target_service": "github.com",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "source": "src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java",
+              "confidence": "medium"
+            },
+            {
+              "source_service": "spring-petclinic",
+              "target_service": "www.apache.org",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "source": "src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java",
+              "confidence": "medium"
+            }
+          ],
+          "config_findings": [
+            {
+              "kind": "environment",
+              "name": "deployment.environment",
+              "value": "-",
+              "source": "docker-compose.yml",
+              "repository": "Spring Petclinic"
+            },
+            {
+              "kind": "environment",
+              "name": "deployment.environment",
+              "value": "-",
+              "source": "docker-compose.yml",
+              "repository": "Spring Petclinic"
+            },
+            {
+              "kind": "environment",
+              "name": "profile",
+              "value": "mysql",
+              "source": "src/main/resources/application-mysql.properties",
+              "repository": "Spring Petclinic"
+            },
+            {
+              "kind": "environment",
+              "name": "profile",
+              "value": "postgres",
+              "source": "src/main/resources/application-postgres.properties",
+              "repository": "Spring Petclinic"
+            }
+          ],
+          "detected_language": "java/spring-boot,java"
+        },
+        "estimate": {
+          "total_low": 73,
+          "total_expected": 105,
+          "total_high": 148,
+          "processor_breakdown": [
+            {
+              "processor": "span-metrics-count",
+              "low": 32,
+              "expected": 48,
+              "high": 68,
+              "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter"
+            },
+            {
+              "processor": "span-metrics-latency",
+              "low": 32,
+              "expected": 48,
+              "high": 68,
+              "formula": "unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)"
+            },
+            {
+              "processor": "service-graph",
+              "low": 8,
+              "expected": 8,
+              "high": 10,
+              "formula": "directed service edges x environments x instance label values x (request_total + failed_total + 2 x (native histogram series))"
+            },
+            {
+              "processor": "host-info",
+              "low": 1,
+              "expected": 1,
+              "high": 2,
+              "formula": "unique service/environment/instance combinations, target_info style"
+            }
+          ],
+          "component_breakdown": [
+            {
+              "component": "span-metrics",
+              "expected": 96,
+              "formula": "unique span-name label sets (service + operation/span name + span kind) x environments x status values x instance label values x enabled counter/histogram series; latency uses native histogram series"
+            },
+            {
+              "component": "service-graph",
+              "expected": 8,
+              "formula": "directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses native histogram series"
+            },
+            {
+              "component": "host-info",
+              "expected": 1,
+              "formula": "unique service/environment/instance combinations, target_info style"
+            }
+          ],
+          "operation_contributors": [
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/oups",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/find",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/edit",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/edit",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/{petId}/edit",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/{petId}/edit",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "POST",
+              "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/owners/{ownerId}/pets/{petId}/visits/new",
+              "kind": "SERVER",
+              "expected": 6
+            },
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "protocol": "http",
+              "method": "GET",
+              "route": "/vets.html",
+              "kind": "SERVER",
+              "expected": 6
+            }
+          ],
+          "service_breakdown": [
+            {
+              "service": "spring-petclinic",
+              "repository": "Spring Petclinic",
+              "expected": 105
+            }
+          ],
+          "uncertainty_model": [
+            {
+              "scope": "span-metrics",
+              "formula": "series = operations x environments x status_values(bound) x dim_cardinality(bound) x instance_label_values x histogram_factor",
+              "histogram_factors": [
+                {
+                  "metric": "span-metrics-count",
+                  "factor": "1 count counter",
+                  "value": 1
+                },
+                {
+                  "metric": "span-metrics-size",
+                  "factor": "1 size series",
+                  "value": 1
+                },
+                {
+                  "metric": "span-metrics-latency",
+                  "factor": "native histogram series",
+                  "value": 1
+                }
+              ],
+              "bounds": [
+                {
+                  "bound": "low",
+                  "status_rule": "status_values - 1",
+                  "status_values": 2,
+                  "dimension_rule": "reduced",
+                  "dimension_multiplier": 1,
+                  "buffer": "none",
+                  "buffer_multiplier": 1
+                },
+                {
+                  "bound": "expected",
+                  "status_rule": "status_values",
+                  "status_values": 3,
+                  "dimension_rule": "configured",
+                  "dimension_multiplier": 1,
+                  "buffer": "none",
+                  "buffer_multiplier": 1
+                },
+                {
+                  "bound": "high",
+                  "status_rule": "status_values + 1",
+                  "status_values": 4,
+                  "dimension_rule": "inflated",
+                  "dimension_multiplier": 1,
+                  "buffer": "+5%",
+                  "buffer_multiplier": 1.05
+                }
+              ],
+              "notes": [
+                "Bounds assume standard OTel status codes (ok, error, unset). Custom status dimensions are not accounted for and may exceed the high estimate.",
+                "Count and size span metrics use histogram_factor 1; latency span metrics use the selected histogram type.",
+                "Instance label values are modeled as 1 for generated trace metrics."
+              ]
+            }
+          ],
+          "assumptions": [
+            "Application calls are modeled as unique App O11y operations/endpoints, not request volume.",
+            "One included operation is one unique span-name label set: service + operation/span name + span kind, before environment/status/custom dimensions are applied.",
+            "Span metric labels are multiplied by 1 environment(s), 3 status value(s), and custom dimension cardinality 1 unless service-specific overrides apply.",
+            "Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
+            "Host info sizing assumes one target-info style series per service instance and environment.",
+            "Named environments are modeled as: prod.",
+            "Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by 1 instance value(s) per service.",
+            "Histogram type native is the default and uses one native histogram series per latency label set; --histogram-buckets is ignored unless --histogram-type=classic or both.",
+            "CLIENT and PRODUCER span kinds are excluded from span-metric operation sizing by default.",
+            "Spring Cloud Gateway ANY routes are counted once unless gateway method expansion is enabled.",
+            "No custom span dimensions were configured for the estimate."
+          ]
+        }
+      }
+    }
+  ]
+}

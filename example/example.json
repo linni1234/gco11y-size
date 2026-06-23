@@ -17,8 +17,8 @@
   },
   "repos": [
     {
-      "name": "retailobservability",
-      "repo": "github.com/linni1234/retailobservability"
+      "name": "Spring Real Example App",
+      "repo": "https://github.com/gothinkster/spring-boot-realworld-example-app"
     },
     {
       "name": "Spring Petclinic",
