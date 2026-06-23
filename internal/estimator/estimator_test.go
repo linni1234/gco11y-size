@@ -223,6 +223,37 @@ func TestInstanceLabelMultiplierAffectsGeneratedTraceMetrics(t *testing.T) {
 	}
 }
 
+func TestServiceSizingOverridesAffectSpanAndHostInfo(t *testing.T) {
+	analysis := model.Analysis{
+		Services: []model.Service{{Name: "checkout"}, {Name: "payment"}},
+		Operations: []model.Operation{
+			{Service: "checkout", Kind: "SERVER", Method: "GET", Route: "/checkout"},
+		},
+	}
+	opts := model.Options{
+		Processors: []string{
+			config.ProcessorSpanMetricsCount,
+			config.ProcessorHostInfo,
+		},
+		StatusValues:         1,
+		Environments:         1,
+		InstancesPerService:  1,
+		InstanceLabelEnabled: true,
+		ServiceOverrides: []model.ServiceSizingOverride{
+			{Service: "checkout", EnvironmentNames: []string{"prod", "staging"}, InstancesPerService: 3},
+		},
+	}
+	estimate := Estimate(analysis, opts, nil)
+	assertProcessor(t, estimate, config.ProcessorSpanMetricsCount, 6)
+	assertProcessor(t, estimate, config.ProcessorHostInfo, 7)
+	if got, want := estimate.TotalExpected, 13; got != want {
+		t.Fatalf("total expected = %d, want %d", got, want)
+	}
+	if got, want := serviceExpected(t, estimate, "checkout"), 12; got != want {
+		t.Fatalf("checkout service expected = %d, want %d", got, want)
+	}
+}
+
 func TestGatewayMethodExpansionOnlyAffectsGatewayOperations(t *testing.T) {
 	analysis := model.Analysis{
 		Services: []model.Service{{Name: "api-gateway"}, {Name: "orders"}},
@@ -318,5 +349,16 @@ func operationExpected(t *testing.T, estimate model.Estimate, service string, ro
 		}
 	}
 	t.Fatalf("operation contribution %s %s not found in %#v", service, route, estimate.OperationContributors)
+	return 0
+}
+
+func serviceExpected(t *testing.T, estimate model.Estimate, service string) int {
+	t.Helper()
+	for _, item := range estimate.ServiceBreakdown {
+		if item.Service == service {
+			return item.Expected
+		}
+	}
+	t.Fatalf("service contribution %s not found in %#v", service, estimate.ServiceBreakdown)
 	return 0
 }

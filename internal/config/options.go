@@ -113,8 +113,37 @@ func ValidateOptions(opts model.Options) error {
 	if opts.Environments < 1 {
 		return fmt.Errorf("--environments must be at least 1")
 	}
+	if len(opts.EnvironmentNames) > 0 {
+		seen := map[string]bool{}
+		for _, environment := range opts.EnvironmentNames {
+			environment = strings.TrimSpace(environment)
+			if environment == "" {
+				return fmt.Errorf("--environment values cannot be empty")
+			}
+			if seen[environment] {
+				return fmt.Errorf("--environment %q is duplicated", environment)
+			}
+			seen[environment] = true
+		}
+	}
 	if opts.InstancesPerService < 1 {
 		return fmt.Errorf("--instances-per-service must be at least 1")
+	}
+	for _, override := range opts.ServiceOverrides {
+		if strings.TrimSpace(override.Service) == "" {
+			return fmt.Errorf("service override service cannot be empty")
+		}
+		if override.Environments < 0 {
+			return fmt.Errorf("service override for %q has negative environment count", override.Service)
+		}
+		if override.InstancesPerService < 0 {
+			return fmt.Errorf("service override for %q has negative instances_per_service", override.Service)
+		}
+		for _, environment := range override.EnvironmentNames {
+			if strings.TrimSpace(environment) == "" {
+				return fmt.Errorf("service override for %q has an empty environment", override.Service)
+			}
+		}
 	}
 	if opts.GatewayMethodCount < 0 {
 		return fmt.Errorf("--gateway-method-count cannot be negative")

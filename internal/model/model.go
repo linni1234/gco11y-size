@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-const Version = "0.2.0"
+const Version = "0.3.0"
 
 type Dimension struct {
 	Name        string `json:"name"`
@@ -10,24 +10,46 @@ type Dimension struct {
 }
 
 type Options struct {
-	Repo                  string      `json:"repo"`
-	OtelConfig            string      `json:"otel_config,omitempty"`
-	Ref                   string      `json:"ref,omitempty"`
-	Workdir               string      `json:"workdir,omitempty"`
-	KeepWorktree          bool        `json:"keep_worktree"`
-	GatewayMethodCount    int         `json:"gateway_method_count,omitempty"`
-	GatewayMethods        []string    `json:"gateway_methods,omitempty"`
-	Profile               string      `json:"profile"`
-	Processors            []string    `json:"processors"`
-	HistogramBuckets      int         `json:"histogram_buckets"`
-	HistogramType         string      `json:"histogram_type"`
-	StatusValues          int         `json:"status_values"`
-	Environments          int         `json:"environments"`
-	InstancesPerService   int         `json:"instances_per_service"`
-	InstanceLabelEnabled  bool        `json:"instance_label_enabled"`
-	CustomDimensions      []Dimension `json:"custom_dimensions,omitempty"`
-	IncludeClientProducer bool        `json:"include_client_producer"`
-	GrafanaQuery          bool        `json:"grafana_query"`
+	Repo                  string                  `json:"repo"`
+	OtelConfig            string                  `json:"otel_config,omitempty"`
+	Ref                   string                  `json:"ref,omitempty"`
+	Workdir               string                  `json:"workdir,omitempty"`
+	KeepWorktree          bool                    `json:"keep_worktree"`
+	GatewayMethodCount    int                     `json:"gateway_method_count,omitempty"`
+	GatewayMethods        []string                `json:"gateway_methods,omitempty"`
+	Profile               string                  `json:"profile"`
+	Processors            []string                `json:"processors"`
+	HistogramBuckets      int                     `json:"histogram_buckets"`
+	HistogramType         string                  `json:"histogram_type"`
+	StatusValues          int                     `json:"status_values"`
+	Environments          int                     `json:"environments"`
+	EnvironmentNames      []string                `json:"environment_names,omitempty"`
+	InstancesPerService   int                     `json:"instances_per_service"`
+	InstanceLabelEnabled  bool                    `json:"instance_label_enabled"`
+	ServiceOverrides      []ServiceSizingOverride `json:"service_overrides,omitempty"`
+	CustomDimensions      []Dimension             `json:"custom_dimensions,omitempty"`
+	IncludeClientProducer bool                    `json:"include_client_producer"`
+	GrafanaQuery          bool                    `json:"grafana_query"`
+}
+
+type RepositoryInput struct {
+	Name                string   `json:"name,omitempty"`
+	Repo                string   `json:"repo"`
+	Ref                 string   `json:"ref,omitempty"`
+	OtelConfig          string   `json:"otel_config,omitempty"`
+	Workdir             string   `json:"workdir,omitempty"`
+	KeepWorktree        bool     `json:"keep_worktree,omitempty"`
+	EnvironmentNames    []string `json:"environments,omitempty"`
+	Environments        int      `json:"environment_count,omitempty"`
+	InstancesPerService int      `json:"instances_per_service,omitempty"`
+}
+
+type ServiceSizingOverride struct {
+	Repository          string   `json:"repository,omitempty"`
+	Service             string   `json:"service"`
+	EnvironmentNames    []string `json:"environments,omitempty"`
+	Environments        int      `json:"environment_count,omitempty"`
+	InstancesPerService int      `json:"instances_per_service,omitempty"`
 }
 
 type Analysis struct {
@@ -44,6 +66,7 @@ type Analysis struct {
 
 type Service struct {
 	Name           string `json:"name"`
+	Repository     string `json:"repository,omitempty"`
 	Root           string `json:"root"`
 	Source         string `json:"source"`
 	OperationCount int    `json:"operation_count"`
@@ -52,6 +75,7 @@ type Service struct {
 
 type Operation struct {
 	Service    string   `json:"service"`
+	Repository string   `json:"repository,omitempty"`
 	Kind       string   `json:"kind"`
 	Protocol   string   `json:"protocol,omitempty"`
 	Method     string   `json:"method"`
@@ -67,24 +91,27 @@ type Operation struct {
 type Edge struct {
 	SourceService string `json:"source_service"`
 	TargetService string `json:"target_service"`
+	Repository    string `json:"repository,omitempty"`
 	Protocol      string `json:"protocol"`
 	Source        string `json:"source"`
 	Confidence    string `json:"confidence"`
 }
 
 type ConfigFinding struct {
-	Kind    string `json:"kind"`
-	Name    string `json:"name"`
-	Value   string `json:"value"`
-	Source  string `json:"source"`
-	Service string `json:"service,omitempty"`
+	Kind       string `json:"kind"`
+	Name       string `json:"name"`
+	Value      string `json:"value"`
+	Source     string `json:"source"`
+	Repository string `json:"repository,omitempty"`
+	Service    string `json:"service,omitempty"`
 }
 
 type Risk struct {
-	Severity string `json:"severity"`
-	Area     string `json:"area"`
-	Message  string `json:"message"`
-	Source   string `json:"source,omitempty"`
+	Severity   string `json:"severity"`
+	Area       string `json:"area"`
+	Message    string `json:"message"`
+	Source     string `json:"source,omitempty"`
+	Repository string `json:"repository,omitempty"`
 }
 
 type Estimate struct {
@@ -115,18 +142,20 @@ type ComponentEstimate struct {
 }
 
 type OperationEstimate struct {
-	Service  string `json:"service"`
-	Protocol string `json:"protocol,omitempty"`
-	Method   string `json:"method"`
-	Route    string `json:"route"`
-	Kind     string `json:"kind"`
-	Origin   string `json:"origin,omitempty"`
-	Expected int    `json:"expected"`
+	Service    string `json:"service"`
+	Repository string `json:"repository,omitempty"`
+	Protocol   string `json:"protocol,omitempty"`
+	Method     string `json:"method"`
+	Route      string `json:"route"`
+	Kind       string `json:"kind"`
+	Origin     string `json:"origin,omitempty"`
+	Expected   int    `json:"expected"`
 }
 
 type ServiceEstimate struct {
-	Service  string `json:"service"`
-	Expected int    `json:"expected"`
+	Service    string `json:"service"`
+	Repository string `json:"repository,omitempty"`
+	Expected   int    `json:"expected"`
 }
 
 type UncertaintyModel struct {
@@ -182,4 +211,17 @@ type Report struct {
 	Source      SourceMetadata `json:"source"`
 	Analysis    Analysis       `json:"analysis"`
 	Estimate    Estimate       `json:"estimate"`
+}
+
+type RepositoryReport struct {
+	Name   string `json:"name"`
+	Report Report `json:"report"`
+}
+
+type WorkspaceReport struct {
+	Version      string             `json:"version"`
+	GeneratedAt  time.Time          `json:"generated_at"`
+	Options      Options            `json:"options"`
+	Aggregate    Report             `json:"aggregate"`
+	Repositories []RepositoryReport `json:"repositories"`
 }

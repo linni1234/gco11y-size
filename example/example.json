@@ -1,0 +1,29 @@
+{
+  "defaults": {
+    "histogram_type": "native",
+    "histogram_buckets": 14,
+    "status_values": 3,
+    "environments": [
+      "prod"
+    ],
+    "instances_per_service": 1,
+    "instance_label_enabled": true,
+    "processors": [
+      "span-metrics-count",
+      "span-metrics-latency",
+      "service-graph",
+      "host-info"
+    ]
+  },
+  "repos": [
+    {
+      "name": "retailobservability",
+      "repo": "github.com/linni1234/retailobservability"
+    },
+    {
+      "name": "Spring Petclinic",
+      "repo": "https://github.com/spring-projects/spring-petclinic"
+    }
+  ],
+  "service_overrides": []
+}

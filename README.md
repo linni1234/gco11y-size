@@ -43,6 +43,91 @@ go run ./cmd/gco11y-size scan \
 
 Remote repositories are shallow-cloned into a temporary worktree and deleted after the report is written. Use `--keep-worktree` to retain the clone for debugging, and `--workdir <path>` to choose the parent directory used for temporary worktrees.
 
+## Multi-Repo Workspace Scans
+
+Repeat `--repo` to scan multiple local folders or Git remotes in one workspace report:
+
+```sh
+go run ./cmd/gco11y-size scan \
+  --repo ./services/api-gateway \
+  --repo ./services/checkout \
+  --repo github.com/acme/inventory-service \
+  --environment prod \
+  --environment staging \
+  --instances-per-service 3 \
+  --service-instances api-gateway=2 \
+  --service-environments inventory-service=prod \
+  --out workspace.html \
+  --json workspace.json
+```
+
+When more than one repo is provided, the JSON output is a workspace report. The HTML report opens on a workspace overview and includes tabs for each repository so you can drill into the same processor, service, operation, edge, and risk details as a single-repo report.
+
+Workspace totals are estimated from a merged analysis rather than a naive sum of per-repo totals. The aggregate layer deduplicates operations by service, span kind, protocol, method/action, and normalized operation name, and deduplicates service graph edges by source service, target service, and protocol.
+
+Named environments can be passed with repeated `--environment`; otherwise `--environments <count>` is used. Per-service overrides use:
+
+```sh
+--service-instances <service>=<count>
+--service-instances <repo-name>:<service>=<count>
+--service-environments <service>=prod,staging
+--service-environments <repo-name>:<service>=prod
+```
+
+Use `repo-name:` when the same service name appears in multiple repos and you only want the override to apply to one repo tab.
+
+You can also use a JSON input file:
+
+```sh
+go run ./cmd/gco11y-size scan --input sizing.json --out workspace.html --json workspace.json
+```
+
+Example `sizing.json`:
+
+```json
+{
+  "defaults": {
+    "histogram_type": "classic",
+    "histogram_buckets": 14,
+    "status_values": 3,
+    "environments": ["prod", "staging"],
+    "instances_per_service": 3,
+    "processors": [
+      "span-metrics-count",
+      "span-metrics-latency",
+      "service-graph",
+      "host-info"
+    ]
+  },
+  "repos": [
+    {
+      "name": "api-gateway",
+      "repo": "./services/api-gateway"
+    },
+    {
+      "name": "checkout",
+      "repo": "github.com/acme/checkout-service",
+      "ref": "main"
+    }
+  ],
+  "service_overrides": [
+    {
+      "service": "api-gateway",
+      "instances_per_service": 2,
+      "environments": ["prod", "staging"]
+    },
+    {
+      "repository": "checkout",
+      "service": "checkout-service",
+      "instances_per_service": 5,
+      "environments": ["prod"]
+    }
+  ]
+}
+```
+
+JSON defaults apply to every repo. Repo entries can override `ref`, `otel_config`, `workdir`, `keep_worktree`, `environments`, `environment_count`, and `instances_per_service`. Service overrides have the highest sizing specificity for matching services.
+
 ## What It Detects
 
 The current built-in Java analyzer detects:
@@ -114,6 +199,8 @@ Defaults model Grafana Cloud App Observability-style behavior:
 - Service graph series are estimated per directed service edge: request/failure counters plus client and server latency histograms.
 - Host info is estimated per unique service, environment, and instance combination.
 - `--instance-label enabled` models Grafana Cloud's generated trace metrics instance label. When enabled, span metrics and service graph metrics are multiplied by `--instances-per-service`; when disabled, generated trace metrics stay service-level. Host info still uses `--instances-per-service`.
+- Repeated `--environment <name>` or JSON `"environments": ["prod", "staging"]` can be used instead of a raw environment count. The number of names drives series sizing, and the names are shown in reports.
+- `--service-instances`, `--service-environments`, and JSON `service_overrides` let a specific service use a different instance or environment count than the workspace default.
 - Spring Cloud Gateway `ANY` routes are counted once by default. Use `--gateway-methods` or `--gateway-method-count` when `http.method` is configured as a span-metrics dimension.
 - Span-metric low/expected/high bounds are explicit in the report: low uses `status_values - 1` with reduced custom dimensions, expected uses configured values, and high uses `status_values + 1` with inflated custom dimensions and a 5% buffer.
 - Bounds assume standard OTel status codes (`ok`, `error`, `unset`). Custom status dimensions are not accounted for and may exceed the high estimate.

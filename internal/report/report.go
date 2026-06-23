@@ -25,6 +25,21 @@ func WriteJSON(path string, report model.Report) error {
 	return os.WriteFile(path, data, 0o644)
 }
 
+func WriteWorkspaceJSON(path string, report model.WorkspaceReport) error {
+	if path == "" {
+		return nil
+	}
+	if err := ensureParent(path); err != nil {
+		return err
+	}
+	data, err := json.MarshalIndent(report, "", "  ")
+	if err != nil {
+		return err
+	}
+	data = append(data, '\n')
+	return os.WriteFile(path, data, 0o644)
+}
+
 func WriteHTML(path string, report model.Report) error {
 	if path == "" {
 		return nil
@@ -33,6 +48,20 @@ func WriteHTML(path string, report model.Report) error {
 		return err
 	}
 	html, err := RenderHTML(report)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, []byte(html), 0o644)
+}
+
+func WriteWorkspaceHTML(path string, report model.WorkspaceReport) error {
+	if path == "" {
+		return nil
+	}
+	if err := ensureParent(path); err != nil {
+		return err
+	}
+	html, err := RenderWorkspaceHTML(report)
 	if err != nil {
 		return err
 	}

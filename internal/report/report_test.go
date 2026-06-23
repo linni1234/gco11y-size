@@ -69,3 +69,51 @@ func TestRenderHTML(t *testing.T) {
 		}
 	}
 }
+
+func TestRenderWorkspaceHTML(t *testing.T) {
+	workspace := model.WorkspaceReport{
+		Version:     model.Version,
+		GeneratedAt: time.Date(2026, 6, 23, 12, 0, 0, 0, time.UTC),
+		Aggregate: model.Report{
+			Estimate: model.Estimate{TotalLow: 10, TotalExpected: 20, TotalHigh: 30},
+			Analysis: model.Analysis{
+				Services:   []model.Service{{Name: "checkout"}},
+				Operations: []model.Operation{{Service: "checkout", Kind: "SERVER", Protocol: "http", Method: "GET", Route: "/checkout"}},
+				Edges:      []model.Edge{{SourceService: "checkout", TargetService: "payment", Protocol: "http"}},
+			},
+		},
+		Repositories: []model.RepositoryReport{
+			{
+				Name: "checkout",
+				Report: model.Report{
+					Options: model.Options{HistogramType: "native", Environments: 1, InstancesPerService: 2},
+					Source:  model.SourceMetadata{Original: "./checkout", Type: "local", ResolvedPath: "/repo/checkout"},
+					Analysis: model.Analysis{
+						Services:   []model.Service{{Name: "checkout", Root: ".", OperationCount: 1}},
+						Operations: []model.Operation{{Service: "checkout", Kind: "SERVER", Protocol: "http", Method: "GET", Route: "/checkout"}},
+					},
+					Estimate: model.Estimate{
+						TotalLow:      10,
+						TotalExpected: 20,
+						TotalHigh:     30,
+						ProcessorBreakdown: []model.ProcessorEstimate{
+							{Processor: "span-metrics-count", Low: 1, Expected: 2, High: 3, Formula: "test"},
+						},
+						OperationContributors: []model.OperationEstimate{
+							{Service: "checkout", Protocol: "http", Method: "GET", Route: "/checkout", Expected: 2},
+						},
+					},
+				},
+			},
+		},
+	}
+	html, err := RenderWorkspaceHTML(workspace)
+	if err != nil {
+		t.Fatalf("RenderWorkspaceHTML returned error: %v", err)
+	}
+	for _, expected := range []string{"Repository Overview", "side-rail", "rail-nav", "workspace-subnav", "href=\"#repo-checkout\"", "data-workspace-tab=\"repo-checkout\"", "data-workspace-section=\"repo-checkout-processors\"", "data-workspace-view=\"overview\"", "workspace-view active", "checkout", "Processors", "Top Operations", "themeToggle"} {
+		if !strings.Contains(html, expected) {
+			t.Fatalf("workspace HTML did not contain %q", expected)
+		}
+	}
+}

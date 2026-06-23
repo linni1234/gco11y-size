@@ -14,11 +14,9 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 	dimensionMultiplier := customDimensionMultiplier(opts.CustomDimensions)
 	includedOps := includedOperations(analysis.Operations, opts.IncludeClientProducer)
 	statusValues := max(1, opts.StatusValues)
-	environments := max(1, opts.Environments)
 	buckets := max(1, opts.HistogramBuckets)
 	histogramType := config.NormalizeHistogramType(opts.HistogramType)
 	latencySeriesPerLabelSet := histogramSeriesPerLabelSet(buckets, histogramType)
-	instanceMultiplier := generatedMetricInstanceMultiplier(opts)
 
 	var breakdown []model.ProcessorEstimate
 	var componentBreakdown []model.ComponentEstimate
@@ -29,10 +27,9 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 	totalHigh := 0
 
 	if config.ProcessorEnabled(opts.Processors, config.ProcessorSpanMetricsCount) {
-		perOp := environments * statusValues * dimensionMultiplier * instanceMultiplier
-		expected := weightedOperationCount(includedOps, opts) * perOp
-		low := weightedOperationCount(includedOps, opts) * environments * max(1, statusValues-1) * lowDimensionMultiplier(opts.CustomDimensions) * instanceMultiplier
-		high := int(math.Ceil(float64(weightedOperationCount(includedOps, opts)*environments*(statusValues+1)*highDimensionMultiplier(opts.CustomDimensions)*instanceMultiplier) * 1.05))
+		expected := spanMetricTotal(includedOps, opts, statusValues, dimensionMultiplier, 1, 1)
+		low := spanMetricTotal(includedOps, opts, max(1, statusValues-1), lowDimensionMultiplier(opts.CustomDimensions), 1, 1)
+		high := spanMetricTotal(includedOps, opts, statusValues+1, highDimensionMultiplier(opts.CustomDimensions), 1, 1.05)
 		breakdown = append(breakdown, model.ProcessorEstimate{
 			Processor: config.ProcessorSpanMetricsCount,
 			Low:       low,
@@ -43,14 +40,13 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 		totalLow += low
 		totalExpected += expected
 		totalHigh += high
-		addOperationContrib(operationContrib, serviceContrib, includedOps, perOp, opts)
+		addOperationContrib(operationContrib, serviceContrib, includedOps, opts, statusValues, dimensionMultiplier, 1)
 	}
 
 	if config.ProcessorEnabled(opts.Processors, config.ProcessorSpanMetricsLatency) {
-		perOp := environments * statusValues * dimensionMultiplier * instanceMultiplier * latencySeriesPerLabelSet
-		expected := weightedOperationCount(includedOps, opts) * perOp
-		low := weightedOperationCount(includedOps, opts) * environments * max(1, statusValues-1) * lowDimensionMultiplier(opts.CustomDimensions) * instanceMultiplier * lowHistogramSeriesPerLabelSet(buckets, histogramType)
-		high := int(math.Ceil(float64(weightedOperationCount(includedOps, opts)*environments*(statusValues+1)*highDimensionMultiplier(opts.CustomDimensions)*instanceMultiplier*highHistogramSeriesPerLabelSet(buckets, histogramType)) * 1.05))
+		expected := spanMetricTotal(includedOps, opts, statusValues, dimensionMultiplier, latencySeriesPerLabelSet, 1)
+		low := spanMetricTotal(includedOps, opts, max(1, statusValues-1), lowDimensionMultiplier(opts.CustomDimensions), lowHistogramSeriesPerLabelSet(buckets, histogramType), 1)
+		high := spanMetricTotal(includedOps, opts, statusValues+1, highDimensionMultiplier(opts.CustomDimensions), highHistogramSeriesPerLabelSet(buckets, histogramType), 1.05)
 		breakdown = append(breakdown, model.ProcessorEstimate{
 			Processor: config.ProcessorSpanMetricsLatency,
 			Low:       low,
@@ -61,14 +57,13 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 		totalLow += low
 		totalExpected += expected
 		totalHigh += high
-		addOperationContrib(operationContrib, serviceContrib, includedOps, perOp, opts)
+		addOperationContrib(operationContrib, serviceContrib, includedOps, opts, statusValues, dimensionMultiplier, latencySeriesPerLabelSet)
 	}
 
 	if config.ProcessorEnabled(opts.Processors, config.ProcessorSpanMetricsSize) {
-		perOp := environments * statusValues * dimensionMultiplier * instanceMultiplier
-		expected := weightedOperationCount(includedOps, opts) * perOp
-		low := weightedOperationCount(includedOps, opts) * environments * max(1, statusValues-1) * lowDimensionMultiplier(opts.CustomDimensions) * instanceMultiplier
-		high := int(math.Ceil(float64(weightedOperationCount(includedOps, opts)*environments*(statusValues+1)*highDimensionMultiplier(opts.CustomDimensions)*instanceMultiplier) * 1.05))
+		expected := spanMetricTotal(includedOps, opts, statusValues, dimensionMultiplier, 1, 1)
+		low := spanMetricTotal(includedOps, opts, max(1, statusValues-1), lowDimensionMultiplier(opts.CustomDimensions), 1, 1)
+		high := spanMetricTotal(includedOps, opts, statusValues+1, highDimensionMultiplier(opts.CustomDimensions), 1, 1.05)
 		breakdown = append(breakdown, model.ProcessorEstimate{
 			Processor: config.ProcessorSpanMetricsSize,
 			Low:       low,
@@ -79,7 +74,7 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 		totalLow += low
 		totalExpected += expected
 		totalHigh += high
-		addOperationContrib(operationContrib, serviceContrib, includedOps, perOp, opts)
+		addOperationContrib(operationContrib, serviceContrib, includedOps, opts, statusValues, dimensionMultiplier, 1)
 	}
 	if spanExpected := spanMetricsExpected(breakdown); spanExpected > 0 {
 		componentBreakdown = append(componentBreakdown, model.ComponentEstimate{
@@ -91,9 +86,9 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 
 	if config.ProcessorEnabled(opts.Processors, config.ProcessorServiceGraph) {
 		seriesPerEdge := 2 + 2*latencySeriesPerLabelSet
-		expected := len(analysis.Edges) * environments * instanceMultiplier * seriesPerEdge
-		low := len(analysis.Edges) * environments * instanceMultiplier * (2 + 2*lowHistogramSeriesPerLabelSet(buckets, histogramType))
-		high := int(math.Ceil(float64(len(analysis.Edges)*environments*instanceMultiplier*(2+2*highHistogramSeriesPerLabelSet(buckets, histogramType))) * 1.2))
+		expected := serviceGraphTotal(analysis.Edges, opts, seriesPerEdge, 1)
+		low := serviceGraphTotal(analysis.Edges, opts, 2+2*lowHistogramSeriesPerLabelSet(buckets, histogramType), 1)
+		high := serviceGraphTotal(analysis.Edges, opts, 2+2*highHistogramSeriesPerLabelSet(buckets, histogramType), 1.2)
 		breakdown = append(breakdown, model.ProcessorEstimate{
 			Processor: config.ProcessorServiceGraph,
 			Low:       low,
@@ -110,15 +105,21 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 			Formula:   fmt.Sprintf("directed service edges x environments x instance label values x (request_total + failed_total + client histogram + server histogram); each histogram uses %s", latencyHistogramFormula(histogramType)),
 		})
 		for _, edge := range analysis.Edges {
-			serviceContrib[edge.SourceService] += environments * instanceMultiplier * seriesPerEdge
+			sizing := effectiveServiceSizing(edge.SourceService, edge.Repository, opts)
+			serviceContrib[serviceContributionKey(edge.SourceService, edge.Repository)] += sizing.environments * generatedMetricInstanceMultiplierForInstances(opts, sizing.instances) * seriesPerEdge
 		}
 	}
 
 	if config.ProcessorEnabled(opts.Processors, config.ProcessorHostInfo) {
-		serviceCount := len(analysis.Services)
-		expected := serviceCount * environments * max(1, opts.InstancesPerService)
-		low := serviceCount * environments
-		high := serviceCount * environments * max(1, opts.InstancesPerService+1)
+		expected := 0
+		low := 0
+		high := 0
+		for _, service := range analysis.Services {
+			sizing := effectiveServiceSizing(service.Name, service.Repository, opts)
+			expected += sizing.environments * sizing.instances
+			low += sizing.environments
+			high += sizing.environments * max(1, sizing.instances+1)
+		}
 		breakdown = append(breakdown, model.ProcessorEstimate{
 			Processor: config.ProcessorHostInfo,
 			Low:       low,
@@ -135,7 +136,8 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 			Formula:   "unique service/environment/instance combinations, target_info style",
 		})
 		for _, service := range analysis.Services {
-			serviceContrib[service.Name] += environments * max(1, opts.InstancesPerService)
+			sizing := effectiveServiceSizing(service.Name, service.Repository, opts)
+			serviceContrib[serviceContributionKey(service.Name, service.Repository)] += sizing.environments * sizing.instances
 		}
 	}
 
@@ -157,8 +159,9 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 	}
 
 	serviceBreakdown := make([]model.ServiceEstimate, 0, len(serviceContrib))
-	for service, expected := range serviceContrib {
-		serviceBreakdown = append(serviceBreakdown, model.ServiceEstimate{Service: service, Expected: expected})
+	for key, expected := range serviceContrib {
+		service, repository := splitServiceContributionKey(key)
+		serviceBreakdown = append(serviceBreakdown, model.ServiceEstimate{Service: service, Repository: repository, Expected: expected})
 	}
 	sort.Slice(serviceBreakdown, func(i, j int) bool {
 		if serviceBreakdown[i].Expected != serviceBreakdown[j].Expected {
@@ -175,7 +178,7 @@ func Estimate(analysis model.Analysis, opts model.Options, calibration *model.Cl
 		ComponentBreakdown:    componentBreakdown,
 		OperationContributors: operationContributors,
 		ServiceBreakdown:      serviceBreakdown,
-		UncertaintyModel:      uncertaintyModel(opts, dimensionMultiplier, instanceMultiplier, histogramType, buckets),
+		UncertaintyModel:      uncertaintyModel(opts, dimensionMultiplier, baseGeneratedMetricInstanceMultiplier(opts), histogramType, buckets),
 		Assumptions:           assumptions(opts, dimensionMultiplier),
 		CloudCalibration:      calibration,
 	}
@@ -204,6 +207,32 @@ func weightedOperationCount(operations []model.Operation, opts model.Options) in
 	return total
 }
 
+func spanMetricTotal(operations []model.Operation, opts model.Options, statusValues int, dimensionMultiplier int, histogramFactor int, buffer float64) int {
+	total := 0
+	for _, op := range operations {
+		sizing := effectiveServiceSizing(op.Service, op.Repository, opts)
+		instanceMultiplier := generatedMetricInstanceMultiplierForInstances(opts, sizing.instances)
+		total += operationWeight(op, opts) * sizing.environments * max(1, statusValues) * max(1, dimensionMultiplier) * instanceMultiplier * max(1, histogramFactor)
+	}
+	if buffer != 1 {
+		return int(math.Ceil(float64(total) * buffer))
+	}
+	return total
+}
+
+func serviceGraphTotal(edges []model.Edge, opts model.Options, seriesPerEdge int, buffer float64) int {
+	total := 0
+	for _, edge := range edges {
+		sizing := effectiveServiceSizing(edge.SourceService, edge.Repository, opts)
+		instanceMultiplier := generatedMetricInstanceMultiplierForInstances(opts, sizing.instances)
+		total += sizing.environments * instanceMultiplier * max(1, seriesPerEdge)
+	}
+	if buffer != 1 {
+		return int(math.Ceil(float64(total) * buffer))
+	}
+	return total
+}
+
 func operationWeight(op model.Operation, opts model.Options) int {
 	if op.Origin == "gateway" && strings.EqualFold(op.Method, "ANY") {
 		if len(opts.GatewayMethods) > 0 {
@@ -216,9 +245,65 @@ func operationWeight(op model.Operation, opts model.Options) int {
 	return 1
 }
 
-func generatedMetricInstanceMultiplier(opts model.Options) int {
+type serviceSizing struct {
+	environments int
+	instances    int
+}
+
+func effectiveServiceSizing(service string, repository string, opts model.Options) serviceSizing {
+	sizing := serviceSizing{
+		environments: baseEnvironmentCount(opts),
+		instances:    max(1, opts.InstancesPerService),
+	}
+	if override, ok := matchingServiceOverride(service, repository, opts.ServiceOverrides); ok {
+		if len(override.EnvironmentNames) > 0 {
+			sizing.environments = len(override.EnvironmentNames)
+		} else if override.Environments > 0 {
+			sizing.environments = override.Environments
+		}
+		if override.InstancesPerService > 0 {
+			sizing.instances = override.InstancesPerService
+		}
+	}
+	sizing.environments = max(1, sizing.environments)
+	sizing.instances = max(1, sizing.instances)
+	return sizing
+}
+
+func matchingServiceOverride(service string, repository string, overrides []model.ServiceSizingOverride) (model.ServiceSizingOverride, bool) {
+	var generic *model.ServiceSizingOverride
+	for i := range overrides {
+		override := overrides[i]
+		if override.Service != service {
+			continue
+		}
+		if override.Repository != "" && override.Repository == repository {
+			return override, true
+		}
+		if override.Repository == "" {
+			generic = &overrides[i]
+		}
+	}
+	if generic != nil {
+		return *generic, true
+	}
+	return model.ServiceSizingOverride{}, false
+}
+
+func baseEnvironmentCount(opts model.Options) int {
+	if len(opts.EnvironmentNames) > 0 {
+		return len(opts.EnvironmentNames)
+	}
+	return max(1, opts.Environments)
+}
+
+func baseGeneratedMetricInstanceMultiplier(opts model.Options) int {
+	return generatedMetricInstanceMultiplierForInstances(opts, max(1, opts.InstancesPerService))
+}
+
+func generatedMetricInstanceMultiplierForInstances(opts model.Options, instances int) int {
 	if opts.InstanceLabelEnabled {
-		return max(1, opts.InstancesPerService)
+		return max(1, instances)
 	}
 	return 1
 }
@@ -327,25 +412,40 @@ func uncertaintyModel(opts model.Options, dimensionMultiplier int, instanceMulti
 	}
 }
 
-func addOperationContrib(operationContrib map[string]model.OperationEstimate, serviceContrib map[string]int, operations []model.Operation, perOperation int, opts model.Options) {
+func addOperationContrib(operationContrib map[string]model.OperationEstimate, serviceContrib map[string]int, operations []model.Operation, opts model.Options, statusValues int, dimensionMultiplier int, histogramFactor int) {
 	for _, op := range operations {
 		weight := operationWeight(op, opts)
-		key := strings.Join([]string{op.Service, op.Kind, op.Protocol, op.Method, op.Route, op.Origin}, "\x00")
+		sizing := effectiveServiceSizing(op.Service, op.Repository, opts)
+		perOperation := sizing.environments * max(1, statusValues) * max(1, dimensionMultiplier) * generatedMetricInstanceMultiplierForInstances(opts, sizing.instances) * max(1, histogramFactor)
+		key := strings.Join([]string{op.Repository, op.Service, op.Kind, op.Protocol, op.Method, op.Route, op.Origin}, "\x00")
 		existing := operationContrib[key]
 		if existing.Service == "" {
 			existing = model.OperationEstimate{
-				Service:  op.Service,
-				Protocol: op.Protocol,
-				Method:   op.Method,
-				Route:    op.Route,
-				Kind:     op.Kind,
-				Origin:   op.Origin,
+				Service:    op.Service,
+				Repository: op.Repository,
+				Protocol:   op.Protocol,
+				Method:     op.Method,
+				Route:      op.Route,
+				Kind:       op.Kind,
+				Origin:     op.Origin,
 			}
 		}
 		existing.Expected += perOperation * weight
 		operationContrib[key] = existing
-		serviceContrib[op.Service] += perOperation * weight
+		serviceContrib[serviceContributionKey(op.Service, op.Repository)] += perOperation * weight
 	}
+}
+
+func serviceContributionKey(service string, repository string) string {
+	return repository + "\x00" + service
+}
+
+func splitServiceContributionKey(key string) (string, string) {
+	repository, service, ok := strings.Cut(key, "\x00")
+	if !ok {
+		return key, ""
+	}
+	return service, repository
 }
 
 func customDimensionMultiplier(dimensions []model.Dimension) int {
@@ -383,9 +483,15 @@ func assumptions(opts model.Options, dimensionMultiplier int) []string {
 	assumptions := []string{
 		"Application calls are modeled as unique App O11y operations/endpoints, not request volume.",
 		"One included operation is one unique span-name label set: service + operation/span name + span kind, before environment/status/custom dimensions are applied.",
-		fmt.Sprintf("Span metric labels are multiplied by %d environment(s), %d status value(s), and custom dimension cardinality %d.", max(1, opts.Environments), max(1, opts.StatusValues), dimensionMultiplier),
+		fmt.Sprintf("Span metric labels are multiplied by %d environment(s), %d status value(s), and custom dimension cardinality %d unless service-specific overrides apply.", baseEnvironmentCount(opts), max(1, opts.StatusValues), dimensionMultiplier),
 		"Service graph edges are directed static-code estimates; each edge contributes request and failure counters plus client and server latency histograms.",
 		"Host info sizing assumes one target-info style series per service instance and environment.",
+	}
+	if len(opts.EnvironmentNames) > 0 {
+		assumptions = append(assumptions, fmt.Sprintf("Named environments are modeled as: %s.", strings.Join(opts.EnvironmentNames, ", ")))
+	}
+	if len(opts.ServiceOverrides) > 0 {
+		assumptions = append(assumptions, fmt.Sprintf("%d service-specific environment/instance override(s) are applied before estimating processor series.", len(opts.ServiceOverrides)))
 	}
 	if opts.InstanceLabelEnabled {
 		assumptions = append(assumptions, fmt.Sprintf("Generated trace metrics include an instance label, multiplying span metrics and service graph metrics by %d instance value(s) per service.", max(1, opts.InstancesPerService)))
