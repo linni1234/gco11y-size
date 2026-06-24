@@ -23,6 +23,10 @@
     {
       "name": "Spring Petclinic",
       "repo": "https://github.com/spring-projects/spring-petclinic"
+    },
+    {
+      "name": "Go App",
+      "repo": "https://github.com/gothinkster/golang-gin-realworld-example-app"
     }
   ],
   "service_overrides": [

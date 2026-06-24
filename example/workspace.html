@@ -810,8 +810,8 @@
         <span>Grafana Cloud App O11y Workspace Estimate</span>
       </div>
       <div class="rail-meta">
-        <strong>Static Java workspace sizing report</strong>
-        <span>Generated 2026-06-23 22:37:05 UTC</span>
+        <strong>Static application workspace sizing report</strong>
+        <span>Generated 2026-06-24 06:55:04 UTC</span>
       </div>
       <nav class="rail-nav">
         <div class="workspace-nav-group active" data-workspace-group="overview">
@@ -849,6 +849,18 @@
           </div>
         </div>
         
+        <div class="workspace-nav-group" data-workspace-group="repo-go-app">
+          <a class="workspace-tab workspace-main-tab" href="#repo-go-app" data-workspace-tab="repo-go-app">Go App</a>
+          <div class="workspace-subnav">
+            <a class="workspace-section-link" href="#repo-go-app" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app">Summary</a>
+            <a class="workspace-section-link" href="#repo-go-app-source" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app-source">Source</a>
+            <a class="workspace-section-link" href="#repo-go-app-processors" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app-processors">Processors</a>
+            <a class="workspace-section-link" href="#repo-go-app-services" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app-services">Services</a>
+            <a class="workspace-section-link" href="#repo-go-app-operations" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app-operations">Top Operations</a>
+            <a class="workspace-section-link" href="#repo-go-app-graph" data-workspace-tab="repo-go-app" data-workspace-section="repo-go-app-graph">Service Graph</a>
+          </div>
+        </div>
+        
       </nav>
       <div class="rail-foot">Workspace estimate. Per-repo details are preserved while aggregate totals dedupe repeated services, operations, and edges.</div>
     </aside>
@@ -860,11 +872,11 @@
             <div class="hero-grid">
               <div class="hero-copy">
                 <span class="eyebrow">Workspace active series</span>
-                <h1>497</h1>
-                <p>338 low / 692 high across 2 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
+                <h1>618</h1>
+                <p>419 low / 862 high across 3 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
               </div>
               <aside class="summary-panel" aria-label="Workspace summary">
-                <p>Scanned 2 repo(s), 2 service(s), 31 operation(s), and 2 service-graph edge(s) using the grafana-cloud-app-o11y profile.</p>
+                <p>Scanned 3 repo(s), 3 service(s), 51 operation(s), and 2 service-graph edge(s) using the grafana-cloud-app-o11y profile.</p>
                 <div class="summary-grid">
                   <div class="summary-card"><span class="summary-label">Histogram type</span><strong>native</strong></div>
                   <div class="summary-card"><span class="summary-label">Environments</span><strong>prod</strong></div>
@@ -876,9 +888,9 @@
           </section>
 
           <section class="stat-band" aria-label="Workspace sizing summary">
-            <div class="stat-item"><span class="stat-label">Repositories</span><strong>2</strong></div>
-            <div class="stat-item"><span class="stat-label">Services</span><strong>2</strong></div>
-            <div class="stat-item"><span class="stat-label">Operations</span><strong>31</strong></div>
+            <div class="stat-item"><span class="stat-label">Repositories</span><strong>3</strong></div>
+            <div class="stat-item"><span class="stat-label">Services</span><strong>3</strong></div>
+            <div class="stat-item"><span class="stat-label">Operations</span><strong>51</strong></div>
             <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>2</strong></div>
           </section>
 
@@ -888,7 +900,7 @@
               <span class="eyebrow">Workspace overview</span>
               <h2>Repository Overview</h2>
             </div>
-            <span class="section-count">2 repos</span>
+            <span class="section-count">3 repos</span>
           </div>
           <div class="table-card">
             <div class="table-scroll">
@@ -914,6 +926,15 @@
                     <td class="numeric">315</td>
                   </tr>
                   
+                  <tr>
+                    <td><a class="pill workspace-tab" href="#repo-go-app" data-workspace-tab="repo-go-app">Go App</a></td>
+                    <td>https://github.com/gothinkster/golang-gin-realworld-example-app</td>
+                    <td class="numeric">1</td>
+                    <td class="numeric">20</td>
+                    <td class="numeric">0</td>
+                    <td class="numeric">121</td>
+                  </tr>
+                  
                 </tbody>
               </table>
             </div>
@@ -934,13 +955,13 @@
                 <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>span-metrics-count</code></td><td class="numeric">156</td><td class="numeric">234</td><td class="numeric">328</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">196</td><td class="numeric">294</td><td class="numeric">412</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
                   
-                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">156</td><td class="numeric">234</td><td class="numeric">328</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">196</td><td class="numeric">294</td><td class="numeric">412</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
                   <tr><td><code>service-graph</code></td><td class="numeric">24</td><td class="numeric">24</td><td class="numeric">29</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
-                  <tr><td><code>host-info</code></td><td class="numeric">2</td><td class="numeric">5</td><td class="numeric">7</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  <tr><td><code>host-info</code></td><td class="numeric">3</td><td class="numeric">6</td><td class="numeric">9</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
                 </tbody>
               </table>
@@ -954,7 +975,7 @@
               <span class="eyebrow">Aggregate contributors</span>
               <h2>Top Service Contributors</h2>
             </div>
-            <span class="section-count">2 services</span>
+            <span class="section-count">3 services</span>
           </div>
           
           <div class="chart-card">
@@ -962,12 +983,17 @@
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-petclinic <span class="chip">Spring Petclinic</span></span><span class="bar-value">315</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 63%"></span></span>
+                <span class="bar-track"><span class="bar-fill" style="width: 50%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <span class="chip">Spring Real Example App</span></span><span class="bar-value">182</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 36%"></span></span>
+                <span class="bar-track"><span class="bar-fill" style="width: 29%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <span class="chip">Go App</span></span><span class="bar-value">121</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 19%"></span></span>
               </div>
               
             </div>
@@ -1008,12 +1034,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1023,12 +1049,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1053,12 +1079,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1068,12 +1094,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1083,7 +1109,7 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1142,7 +1168,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/gothinkster/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3420008704/spring-boot-realworld-example-app</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-395035316/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1234,12 +1260,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1264,12 +1290,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1321,7 +1347,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/spring-projects/spring-petclinic</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-884327595/spring-petclinic</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-4121404306/spring-petclinic</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1423,12 +1449,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1453,12 +1479,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1493,6 +1519,210 @@
               </table>
             </div>
           </div>
+          
+        </section>
+        
+        <section class="workspace-view content-section" id="repo-go-app" data-workspace-view="repo-go-app">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Repository drilldown</span>
+              <h2>Go App</h2>
+            </div>
+            <span class="section-count">121 expected series</span>
+          </div>
+
+          <div class="stat-band" aria-label="Go App summary">
+            <div class="stat-item"><span class="stat-label">Services</span><strong>1</strong></div>
+            <div class="stat-item"><span class="stat-label">Operations</span><strong>20</strong></div>
+            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>0</strong></div>
+            <div class="stat-item"><span class="stat-label">Active series</span><strong>121</strong></div>
+          </div>
+
+          <div class="detail-panel" id="repo-go-app-source" style="margin-top: 16px;">
+            <div class="table-scroll">
+              <table>
+                <tbody>
+                  <tr><th>Input</th><td>https://github.com/gothinkster/golang-gin-realworld-example-app</td></tr>
+                  <tr><th>Type</th><td>git</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-587426531/golang-gin-realworld-example-app</td></tr>
+                  <tr><th>Histogram type</th><td>native</td></tr>
+                  <tr><th>Environments</th><td>prod</td></tr>
+                  <tr><th>Instances / service</th><td>1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section-heading" id="repo-go-app-processors" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Generated metrics</span>
+              <h2>Go App Processors</h2>
+            </div>
+          </div>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
+                <tbody>
+                  
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">40</td><td class="numeric">60</td><td class="numeric">84</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">40</td><td class="numeric">60</td><td class="numeric">84</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  
+                  <tr><td><code>service-graph</code></td><td class="numeric">0</td><td class="numeric">0</td><td class="numeric">0</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  
+                  <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">1</td><td class="numeric">2</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section-heading" id="repo-go-app-services" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Detected services</span>
+              <h2>Go App Services</h2>
+            </div>
+            <span class="section-count">1 services</span>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Service</th><th>Root</th><th>Source</th><th class="numeric">Operations</th><th class="numeric">Edges</th></tr></thead>
+                <tbody>
+                  
+                  <tr><td><code>golang-gin-realworld-example-app</code></td><td>.</td><td>config</td><td class="numeric">20</td><td class="numeric">0</td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+
+          <div class="section-heading" id="repo-go-app-operations" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Span metric contributors</span>
+              <h2>Go App Top Operations</h2>
+            </div>
+          </div>
+          
+          <div class="chart-card">
+            <div class="bar-list">
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles/feed</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> DELETE /api/articles/{slug}</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> PUT /api/articles/{slug}</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles/{slug}</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> DELETE /api/articles/{slug}/comments/{id}</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> DELETE /api/articles/{slug}/favorite</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles/{slug}/favorite</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/ping</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/profiles/{username}</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> DELETE /api/profiles/{username}/follow</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/profiles/{username}/follow</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/tags</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/user</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> PUT /api/user</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/users</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/users/login</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+            </div>
+          </div>
+          
+
+          <div class="section-heading" id="repo-go-app-graph" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Static dependency hints</span>
+              <h2>Go App Service Graph</h2>
+            </div>
+            <span class="section-count">0 edges</span>
+          </div>
+          
+          <div class="empty-state">No service graph edges were detected for this repository.</div>
           
         </section>
         

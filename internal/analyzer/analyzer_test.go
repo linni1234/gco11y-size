@@ -2,6 +2,7 @@ package analyzer
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/nilslindholm/metricgenerationsizer/internal/model"
@@ -142,6 +143,62 @@ func TestAnalyzePlainJavaMixedDetectors(t *testing.T) {
 	assertEdgeProtocol(t, analysis, "plain-java-service", "payments.internal", "http")
 	assertEdgeProtocol(t, analysis, "plain-java-service", "kafka:audit.events", "kafka")
 	assertEdgeProtocol(t, analysis, "plain-java-service", "rabbit:events/order.created", "rabbit")
+}
+
+func TestAnalyzeGoServiceMixedDetectors(t *testing.T) {
+	analysis, err := Analyze(fixture(t, "go-service"), "")
+	if err != nil {
+		t.Fatalf("Analyze returned error: %v", err)
+	}
+	if !strings.Contains(analysis.DetectedLanguage, "go") {
+		t.Fatalf("detected language = %q, want go", analysis.DetectedLanguage)
+	}
+	if got, want := len(analysis.Services), 1; got != want {
+		t.Fatalf("services = %d, want %d: %#v", got, want, analysis.Services)
+	}
+	if got, want := analysis.Services[0].Name, "shop-go"; got != want {
+		t.Fatalf("service name = %q, want %q", got, want)
+	}
+	if got, want := len(analysis.Operations), 18; got != want {
+		t.Fatalf("operations = %d, want %d: %#v", got, want, analysis.Operations)
+	}
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/health")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "ANY", "/legacy")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/api/orders/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "POST", "/api/orders")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/api/registered/helper/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "PUT", "/v1/customers/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/chi/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "POST", "/nested/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/gorilla/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "http", "GET", "/fiber/{id}")
+	assertOperationProtocol(t, analysis, "shop-go", "SERVER", "grpc", "RPC", "Greeter/SayHello")
+	assertOperationProtocol(t, analysis, "shop-go", "CONSUMER", "kafka", "MESSAGE", "kafka:orders.created")
+	assertOperationProtocol(t, analysis, "shop-go", "PRODUCER", "kafka", "MESSAGE", "kafka:audit.events")
+	assertOperationProtocol(t, analysis, "shop-go", "CONSUMER", "rabbit", "MESSAGE", "rabbit:orders.queue")
+	assertOperationProtocol(t, analysis, "shop-go", "PRODUCER", "rabbit", "MESSAGE", "rabbit:events/order.created")
+	assertOperationProtocol(t, analysis, "shop-go", "CONSUMER", "nats", "MESSAGE", "nats:inventory.updated")
+	assertOperationProtocol(t, analysis, "shop-go", "PRODUCER", "nats", "MESSAGE", "nats:billing.created")
+	assertOperationProtocol(t, analysis, "shop-go", "INTERNAL", "custom", "SPAN", "custom-go-work")
+
+	grpcOp := findOperation(t, analysis, "shop-go", "SERVER", "grpc", "RPC", "Greeter/SayHello")
+	for _, detector := range []string{"protobuf", "grpc-go", "connect-go"} {
+		if !contains(grpcOp.Detectors, detector) {
+			t.Fatalf("grpc operation detectors = %#v, want %s", grpcOp.Detectors, detector)
+		}
+	}
+	if got, want := len(analysis.Edges), 6; got != want {
+		t.Fatalf("edges = %d, want %d: %#v", got, want, analysis.Edges)
+	}
+	assertEdgeProtocol(t, analysis, "shop-go", "payments.internal", "http")
+	assertEdgeProtocol(t, analysis, "shop-go", "inventory", "http")
+	assertEdgeProtocol(t, analysis, "shop-go", "inventory-service", "grpc")
+	assertEdgeProtocol(t, analysis, "shop-go", "kafka:audit.events", "kafka")
+	assertEdgeProtocol(t, analysis, "shop-go", "rabbit:events/order.created", "rabbit")
+	assertEdgeProtocol(t, analysis, "shop-go", "nats:billing.created", "nats")
+	if len(analysis.Risks) == 0 {
+		t.Fatalf("expected high-cardinality risk for user.id Go OTel attribute")
+	}
 }
 
 func assertOperation(t *testing.T, analysis model.Analysis, service string, kind string, method string, route string) {

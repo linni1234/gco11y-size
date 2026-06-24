@@ -783,7 +783,7 @@ const htmlTemplate = `<!doctype html>
         <span>Grafana Cloud App O11y Series Estimate</span>
       </div>
       <div class="rail-meta">
-        <strong>Static Java sizing report</strong>
+        <strong>Static application sizing report</strong>
         <span>Generated {{ .GeneratedAt.Format "2006-01-02 15:04:05 UTC" }}</span>
       </div>
       <nav class="rail-nav">

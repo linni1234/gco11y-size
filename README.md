@@ -1,18 +1,68 @@
-# Grafana Cloud App O11y Series Estimator
+# gco11y-size
 
-`gco11y-size` is a local CLI that scans application source code and estimates the active metric series Grafana Cloud Application Observability can create from metrics-generator style span metrics, service graph metrics, and host/target info. It currently ships with a Java analyzer that includes Spring Boot plus common plain-Java detectors.
+`gco11y-size` is a local CLI for estimating how many active metric series Grafana Cloud Application Observability may generate from application traces.
 
-The tool is intentionally offline by default. Source code can forecast operations, routes, service names, outbound dependency hints, and high-cardinality risks, but exact active series still depend on runtime traces and actual label values.
+It scans source code, detects application operations and service-to-service dependency hints, applies a Grafana Cloud App O11y sizing model, and writes a standalone HTML workspace report plus machine-readable JSON.
 
-## Run
+The tool is designed for pre-deployment and customer sizing conversations. It runs offline by default and does not need access to Grafana Cloud unless you explicitly enable optional calibration.
+
+## Why This Exists
+
+Grafana Cloud Application Observability generates metrics from traces through metrics-generator style processors:
+
+- Span metrics for RED-style request count and latency.
+- Service graph metrics for client/server call edges.
+- Host or target info for service, environment, and instance metadata.
+
+Active series are driven by label cardinality, not request volume alone. Source code cannot produce an exact billable series count, but it can estimate the important static drivers: services, operations, route names, span kinds, environments, instances, histogram type, custom dimensions, and service graph edges.
+
+## Features
+
+- CLI-first and local by default.
+- Scans local folders, GitHub/GitLab HTTPS URLs, SSH URLs, and shorthand Git inputs.
+- Supports single-repo and multi-repo workspace reports with the same output format.
+- Produces standalone `report.html` and `report.json` files.
+- Supports Java and Go analyzers through a shared analyzer interface.
+- Estimates span metrics, service graph metrics, and host or target info separately.
+- Supports native, classic, and dual histogram sizing.
+- Supports environment, instance, processor, custom dimension, and gateway method-expansion controls.
+- Supports per-service sizing overrides for instances and environments.
+- Uses local `git` for private repository authentication. The tool does not store OAuth tokens.
+- Can optionally query Grafana Cloud Prometheus with read-only credentials for calibration.
+
+## Install
+
+Clone and run from source:
 
 ```sh
-go run ./cmd/gco11y-size scan --repo ./path/to/java-repo
+git clone https://github.com/linni1234/gco11y-size.git
+cd gco11y-size
+go run ./cmd/gco11y-size scan --repo ./path/to/repo
 ```
 
-Every scan writes a workspace report. With one `--repo`, the workspace contains one repository entry; repeat `--repo` or use `--input` when you want multiple repositories in the same report.
+Build a local binary:
 
-`--repo` accepts a local folder or a Git remote:
+```sh
+go build -o gco11y-size ./cmd/gco11y-size
+./gco11y-size scan --repo ./path/to/repo
+```
+
+Install the local checkout into your `GOBIN`:
+
+```sh
+go install ./cmd/gco11y-size
+gco11y-size scan --repo ./path/to/repo
+```
+
+## Quick Start
+
+Scan a local repository:
+
+```sh
+go run ./cmd/gco11y-size scan --repo ./path/to/repo
+```
+
+Scan a remote repository:
 
 ```sh
 go run ./cmd/gco11y-size scan --repo https://github.com/acme/checkout-service.git --ref main
@@ -20,80 +70,64 @@ go run ./cmd/gco11y-size scan --repo git@gitlab.com:acme/checkout-service.git --
 go run ./cmd/gco11y-size scan --repo github.com/acme/checkout-service
 ```
 
-By default this writes:
+By default, every scan writes a workspace report:
 
-- `report.html`: standalone workspace sizing report
-- `report.json`: machine-readable workspace report
+- `report.html`: standalone HTML report.
+- `report.json`: machine-readable workspace report.
 
-Example with sizing controls:
+A single `--repo` is represented as a workspace with one repository entry. Repeat `--repo` or use `--input` to scan multiple repositories in one report.
+
+## Example
+
+Run the included example workspace:
+
+```sh
+go run ./cmd/gco11y-size scan \
+  --input example/example.json \
+  --out example/workspace.html \
+  --json example/workspace.json
+```
+
+Use explicit sizing controls:
 
 ```sh
 go run ./cmd/gco11y-size scan \
   --repo ./monorepo \
   --otel-config ./alloy \
-  --environments 3 \
+  --environment prod \
+  --environment staging \
   --histogram-type classic \
   --histogram-buckets 14 \
   --status-values 3 \
   --instance-label enabled \
   --instances-per-service 3 \
+  --service-instances api-gateway=2 \
+  --service-environments inventory-service=prod \
   --dimension tenant.id=25 \
   --gateway-methods GET,POST,PUT,DELETE,PATCH \
   --out app-o11y-sizing.html \
   --json app-o11y-sizing.json
 ```
 
-Remote repositories are shallow-cloned into a temporary worktree and deleted after the report is written. Use `--keep-worktree` to retain the clone for debugging, and `--workdir <path>` to choose the parent directory used for temporary worktrees.
+## Workspace Input
 
-## Workspace Scans
-
-Every scan produces a workspace report. A single repository is represented as a workspace with one repository entry; repeat `--repo` to scan multiple local folders or Git remotes in the same workspace:
-
-```sh
-go run ./cmd/gco11y-size scan \
-  --repo ./services/api-gateway \
-  --repo ./services/checkout \
-  --repo github.com/acme/inventory-service \
-  --environment prod \
-  --environment staging \
-  --instances-per-service 3 \
-  --service-instances api-gateway=2 \
-  --service-environments inventory-service=prod \
-  --out workspace.html \
-  --json workspace.json
-```
-
-The HTML report opens on a workspace overview and includes a left-menu entry for each repository. Expanding a repository reveals submenu links for source metadata, processors, services, top operations, and service graph details.
-
-Workspace totals are estimated from a merged analysis rather than a naive sum of per-repo totals. The aggregate layer deduplicates operations by service, span kind, protocol, method/action, and normalized operation name, and deduplicates service graph edges by source service, target service, and protocol.
-
-Named environments can be passed with repeated `--environment`; otherwise `--environments <count>` is used. Per-service overrides use:
-
-```sh
---service-instances <service>=<count>
---service-instances <repo-name>:<service>=<count>
---service-environments <service>=prod,staging
---service-environments <repo-name>:<service>=prod
-```
-
-Use `repo-name:` when the same service name appears in multiple repos and you only want the override to apply to one repo tab.
-
-You can also use a JSON input file:
+For repeatable customer sizing, use a JSON input file:
 
 ```sh
 go run ./cmd/gco11y-size scan --input sizing.json --out workspace.html --json workspace.json
 ```
 
-Example `sizing.json`:
+Example:
 
 ```json
 {
   "defaults": {
-    "histogram_type": "classic",
+    "histogram_type": "native",
     "histogram_buckets": 14,
     "status_values": 3,
     "environments": ["prod", "staging"],
     "instances_per_service": 3,
+    "instance_label_enabled": true,
     "processors": [
       "span-metrics-count",
       "span-metrics-latency",
@@ -130,86 +164,49 @@ Example `sizing.json`:
 
 JSON defaults apply to every repo. Repo entries can override `ref`, `otel_config`, `workdir`, `keep_worktree`, `environments`, `environment_count`, and `instances_per_service`. Service overrides have the highest sizing specificity for matching services.
 
-## What It Detects
+## Supported Inputs
 
-The current built-in Java analyzer detects:
+| Input type | Example | Notes |
+| --- | --- | --- |
+| Local folder | `--repo ./services/checkout` | Scanned directly. |
+| GitHub/GitLab HTTPS | `--repo https://github.com/acme/app.git` | Uses local `git clone`. |
+| SSH Git URL | `--repo git@gitlab.com:acme/app.git` | Uses local SSH keys and config. |
+| Shorthand Git URL | `--repo github.com/acme/app` | Resolved to a cloneable Git URL. |
+| Workspace JSON | `--input sizing.json` | Best for repeatable multi-repo sizing. |
 
-- Spring MVC routes from `@RestController`, `@Controller`, `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PutMapping`, `@DeleteMapping`, and `@PatchMapping`
-- JAX-RS/Jakarta REST routes from `@Path`, `@GET`, `@POST`, `@PUT`, `@DELETE`, `@PATCH`, `@HEAD`, and `@OPTIONS`
-- Servlet mappings from `@WebServlet`, `web.xml`, and dynamic `addMapping(...)`
-- JDK HTTP server contexts from `HttpServer.createContext(...)`
-- Javalin/Spark/custom-router style registrations when server/router hints are present
-- gRPC server operations from Java `*Grpc.*ImplBase` implementations and `.proto` service definitions tied to a service identity
-- Message consumers from `@KafkaListener` and `@RabbitListener`
-- Plain Java Kafka, RabbitMQ, and JMS producer/consumer patterns
-- Outbound edges from Feign clients and static `http://` / `https://` client URLs
-- Outbound edges from Java HTTP clients, gRPC channels, Kafka producers, and RabbitMQ publishers
-- OpenTelemetry hints such as `http.route`, `spanBuilder(...)`, and `@WithSpan`
-- Service names from `spring.application.name`, `otel.service.name`, `OTEL_SERVICE_NAME`, and `service.name` resource attributes
-- Config hints for environments, processors, and custom dimensions
-- Cardinality risks such as likely user/session/request ID attributes or risky configured dimensions
+Remote repositories are shallow-cloned into a temporary worktree and removed after the report is written. Use `--keep-worktree` to retain the clone for debugging, and `--workdir <path>` to choose the parent directory used for temporary worktrees.
 
-Operations include protocol, confidence, and detector metadata in the JSON/HTML report. The merge layer deduplicates by service, span kind, protocol, method/action, and normalized operation name, so overlapping detectors such as Java gRPC implementation plus `.proto` definitions count once while HTTP, gRPC, Kafka, Rabbit, JMS, and custom spans stay separate.
+## Supported Analyzers
 
-## Adding Frameworks
+| Language | Coverage summary | Details |
+| --- | --- | --- |
+| Java | Spring MVC, Spring Cloud Gateway, JAX-RS, servlets, gRPC/protobuf, messaging, outbound dependencies, and OpenTelemetry hints. | [Java analyzer README](internal/analyzer/java/README.md) |
+| Go | `net/http`, Gin, Echo, Chi, Gorilla mux, Fiber, gRPC/protobuf, Connect, messaging, outbound dependencies, and OpenTelemetry hints. | [Go analyzer README](internal/analyzer/golang/README.md) |
 
-Analyzer modules live behind the shared `internal/analyzer/framework.Analyzer` interface. The core `internal/analyzer` package only validates the repo, runs registered analyzers, merges their neutral facts, and returns the shared `model.Analysis` used by the estimator and report renderer.
-
-The Java analyzer is intentionally split into a coordinator plus focused detector packages:
+Operations include protocol, confidence, detector metadata, source file, and handler hints where available. The shared merge layer deduplicates operations by:
 
 ```text
-internal/analyzer/java/
-  analyzer.go
-  detector.go
-  common.go
-  detectors/
-    common/
-    spring/
-    grpc/
-    jaxrs/
-    servlet/
-    routing/
-    messaging/
-    outbound/
-    otel/
+service + span_kind + protocol + method/action + normalized operation
 ```
 
-`internal/analyzer/java/analyzer.go` owns repo walking and service-root resolution. Each detector owns one source of Java evidence: Spring MVC/Gateway/listeners, gRPC Java/protobuf, JAX-RS, servlet mappings, generic Java routing, messaging, outbound dependencies, or OpenTelemetry hints. Detector output is still neutral `model.Operation`, `model.Edge`, `model.Service`, `model.ConfigFinding`, and `model.Risk` data.
-
-To add a new framework or language:
-
-1. For another Java framework, add a focused package under `internal/analyzer/java/detectors/<framework>` and call it from the Java coordinator.
-2. For another language, create a package such as `internal/analyzer/nodeexpress` or `internal/analyzer/fastapi` and implement `framework.Analyzer`.
-3. Emit neutral `model.Service`, `model.Operation`, `model.Edge`, `model.ConfigFinding`, and `model.Risk` values.
-4. Reuse helpers from `internal/analyzer/common` for repo walking, service-root inference, route normalization, and cardinality-risk checks. Java detectors can also reuse `internal/analyzer/java/detectors/common` for annotation parsing, string literals, target normalization, and operation construction.
-5. Register new top-level language analyzers in `registeredAnalyzers()` in `internal/analyzer/analyzer.go`. Java detector packages do not need registration there; they are wired through `internal/analyzer/java/analyzer.go`.
-
-The estimator intentionally does not know which framework produced an operation. It only consumes neutral operations, edges, and services. The final merge layer deduplicates operations across detectors by service, span kind, protocol, method/action, and normalized operation name. For example, a gRPC operation found in both Java generated-code implementations and `.proto` definitions counts once, while HTTP, gRPC, Kafka, Rabbit, JMS, and custom spans remain distinct.
+That lets overlapping detectors count once while HTTP, gRPC, Kafka, RabbitMQ, JMS, NATS, and custom spans stay separate.
 
 ## Sizing Model
 
-Defaults model Grafana Cloud App Observability-style behavior:
+Defaults model Grafana Cloud Application Observability-style generated metrics:
 
 - Span metrics include `SERVER` and `CONSUMER` operations by default.
 - `CLIENT` and `PRODUCER` span kinds are included only with `--include-client-producer`.
-- One included span-metric operation means one unique span-name label set: `service + operation/span_name + span_kind`, before environment, status, and custom dimensions are applied.
-- `--histogram-type` controls latency histogram sizing for span metrics and service graph metrics. The default is `native`.
-- `native` uses one series per latency label set.
-- `classic` uses emitted `_bucket` series + `_sum` + `_count`; include the `+Inf` bucket in `--histogram-buckets`.
-- `both` models a migration period: classic series plus one native histogram series. Avoid using this permanently unless you intentionally need both query styles.
-- `--native-histograms` is still accepted as a deprecated alias for `--histogram-type both`.
-- Service graph series are estimated per directed service edge: request/failure counters plus client and server latency histograms.
+- Span metric label sets are based on service, operation or span name, span kind, status code, environment, instance label, and configured custom dimensions.
+- Service graph series are estimated per directed service edge.
 - Host info is estimated per unique service, environment, and instance combination.
-- `--instance-label enabled` models Grafana Cloud's generated trace metrics instance label. When enabled, span metrics and service graph metrics are multiplied by `--instances-per-service`; when disabled, generated trace metrics stay service-level. Host info still uses `--instances-per-service`.
-- Repeated `--environment <name>` or JSON `"environments": ["prod", "staging"]` can be used instead of a raw environment count. The number of names drives series sizing, and the names are shown in reports.
-- `--service-instances`, `--service-environments`, and JSON `service_overrides` let a specific service use a different instance or environment count than the workspace default.
-- Spring Cloud Gateway `ANY` routes are counted once by default. Use `--gateway-methods` or `--gateway-method-count` when `http.method` is configured as a span-metrics dimension.
-- Span-metric low/expected/high bounds are explicit in the report: low uses `status_values - 1` with reduced custom dimensions, expected uses configured values, and high uses `status_values + 1` with inflated custom dimensions and a 5% buffer.
-- Bounds assume standard OTel status codes (`ok`, `error`, `unset`). Custom status dimensions are not accounted for and may exceed the high estimate.
+- Native histograms are the default because they use one series per latency label set.
+- Classic histograms use emitted `_bucket` series plus `_sum` and `_count`.
+- `both` models a migration period where classic and native histograms are emitted together.
 
 Main formula inputs:
 
-- operations/endpoints
+- operations and endpoints
 - environments
 - status values
 - histogram type
@@ -220,6 +217,84 @@ Main formula inputs:
 - service instances
 - generated metrics instance label setting
 - optional Spring Cloud Gateway method expansion
+
+### Histogram Types
+
+| Type | Series factor for latency histograms | Use case |
+| --- | ---: | --- |
+| `native` | `1` | Default, lower active series footprint. |
+| `classic` | `histogram_buckets + 2` | Legacy dashboards and classic `histogram_quantile()` queries. |
+| `both` | `histogram_buckets + 3` | Temporary migration mode only. |
+
+`--native-histograms` is still accepted as a deprecated alias for `--histogram-type=both`.
+
+### Uncertainty Bounds
+
+The report exposes low, expected, and high bounds for span metrics:
+
+| Bound | Status values | Dimension multiplier | Buffer |
+| --- | --- | --- | --- |
+| Low | `status_values - 1` | reduced | none |
+| Expected | `status_values` | configured | none |
+| High | `status_values + 1` | inflated | 5% |
+
+Bounds assume standard OpenTelemetry status-code style cardinality. Custom status dimensions or high-cardinality custom labels can exceed the high estimate.
+
+## CLI Reference
+
+Common scan flags:
+
+| Flag | Description |
+| --- | --- |
+| `--repo <path-or-url>` | Repository path or Git URL. May be repeated. |
+| `--input <file>` | JSON workspace input file. |
+| `--ref <branch\|tag\|sha>` | Git ref for remote repositories. |
+| `--workdir <path>` | Parent directory for temporary remote clones. |
+| `--keep-worktree` | Keep remote clone after scanning. |
+| `--otel-config <file-or-dir>` | Additional Alloy, OTel Collector, Spring, or Kubernetes config path. |
+| `--out <file>` | HTML report path. Use an empty value to skip. |
+| `--json <file>` | JSON report path. Use an empty value to skip. |
+| `--processors <list>` | Comma-separated processors to include. |
+| `--histogram-type native\|classic\|both` | Histogram implementation for span metrics and service graph metrics. |
+| `--histogram-buckets <n>` | Classic histogram bucket series per label set. Include `+Inf`. |
+| `--status-values <n>` | Expected status-code label values per operation. |
+| `--environments <n>` | Number of environments when names are not provided. |
+| `--environment <name>` | Named environment. May be repeated. |
+| `--instances-per-service <n>` | Default service instances per environment. |
+| `--instance-label enabled\|disabled` | Whether generated trace metrics include instance label cardinality. |
+| `--service-instances <service=count>` | Per-service instance override. |
+| `--service-environments <service=envs>` | Per-service environment override. |
+| `--dimension <name=cardinality>` | Custom span dimension cardinality. May be repeated. |
+| `--gateway-methods <methods>` | Expand Spring Cloud Gateway `ANY` routes when `http.method` is a dimension. |
+| `--include-client-producer` | Include `CLIENT` and `PRODUCER` span kinds in span metrics. |
+| `--grafana-query` | Query Grafana Cloud Prometheus when credentials are configured. |
+
+Per-service overrides can be scoped to a repository tab:
+
+```sh
+--service-instances api-gateway=2
+--service-instances "checkout:checkout-service=5"
+--service-environments inventory-service=prod,staging
+--service-environments "checkout:checkout-service=prod"
+```
+
+Use `repo-name:service-name` when the same service name appears in multiple repositories.
+
+## Report Output
+
+The HTML report includes:
+
+- workspace overview
+- per-repository drilldown
+- source metadata
+- processor breakdown
+- detected services
+- top operation contributors
+- service graph edge estimates
+- high-cardinality risks
+- assumptions and uncertainty model
+
+The JSON report is intended for CI, diffing, scripted review, and future UI reuse.
 
 ## Optional Grafana Cloud Calibration
 
@@ -235,21 +310,70 @@ go run ./cmd/gco11y-size scan --repo ./repo --grafana-query
 
 Without `--grafana-query`, detected credentials are reported but no network query is made.
 
-## GitHub And GitLab Authentication
+## Git Authentication
 
-Remote repository access uses the local `git` executable. That means authentication works the same way it does for `git clone` on the customer machine:
+Remote repository access uses the local `git` executable:
 
-- HTTPS private repos can use Git Credential Manager, including browser OAuth and MFA flows.
-- SSH repos use local SSH keys and SSH config.
-- Self-hosted GitLab or GitHub Enterprise work when the provided Git URL works with local `git clone`.
+- HTTPS private repositories can use Git Credential Manager, including browser OAuth and MFA flows.
+- SSH repositories use local SSH keys and SSH config.
+- Self-hosted GitLab and GitHub Enterprise work when the provided Git URL works with local `git clone`.
 
-The estimator does not implement OAuth itself in v1, and it does not store GitHub or GitLab tokens. Report metadata redacts URL user info if a credentialed HTTPS URL is provided.
+The estimator does not implement OAuth itself in v1 and does not store GitHub or GitLab tokens. Report metadata redacts URL user info if a credentialed HTTPS URL is provided.
 
-## Test
+## Project Layout
+
+```text
+cmd/gco11y-size/          CLI entrypoint
+internal/analyzer/        Analyzer orchestration and merge layer
+internal/analyzer/java/   Java analyzer and detectors
+internal/analyzer/golang/ Go analyzer and detectors
+internal/config/          CLI and metrics-generator defaults
+internal/estimator/       Active-series sizing formulas
+internal/report/          HTML and JSON rendering
+internal/source/          Local and Git source resolution
+testdata/fixtures/        Analyzer and estimator fixtures
+example/                  Customer-facing example workspace
+```
+
+## Development
+
+Run tests:
 
 ```sh
 GOCACHE="$PWD/.gocache" go test ./...
 ```
+
+Run a fixture scan:
+
+```sh
+go run ./cmd/gco11y-size scan \
+  --repo testdata/fixtures/go-service \
+  --out /tmp/gco11y-go-fixture.html \
+  --json /tmp/gco11y-go-fixture.json
+```
+
+Add another framework detector:
+
+1. Add a focused detector package under the language analyzer.
+2. Emit neutral `model.Service`, `model.Operation`, `model.Edge`, `model.ConfigFinding`, and `model.Risk` records.
+3. Reuse shared helpers for route normalization, service-root inference, target normalization, and cardinality risk checks.
+4. Add fixture coverage under `testdata/fixtures`.
+5. Keep estimator logic language-agnostic.
+
+Add another language:
+
+1. Create a package under `internal/analyzer/<language>`.
+2. Implement `framework.Analyzer`.
+3. Register the analyzer in `registeredAnalyzers()` in `internal/analyzer/analyzer.go`.
+4. Document coverage and gaps in `internal/analyzer/<language>/README.md`.
+
+## Limitations
+
+- This is a static estimator, not a billing oracle.
+- Runtime-only spans, dynamic routes, generated routes, service discovery, feature flags, and runtime label values may not be visible in source.
+- The estimator cannot know real status-code spread, tenant cardinality, pod churn, or which operations receive traffic.
+- Service graph estimates depend on static dependency hints unless runtime telemetry is used for calibration.
+- Generated active series can differ from the estimate when metrics-generator configuration, custom dimensions, histogram settings, or instrumentation changes.
 
 ## License
 

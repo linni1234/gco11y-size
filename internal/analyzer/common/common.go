@@ -9,7 +9,7 @@ import (
 
 func ShouldSkipDir(name string) bool {
 	switch name {
-	case ".git", ".idea", ".vscode", "target", "build", "out", "bin", "node_modules", ".gradle", ".venv", "venv", "__pycache__":
+	case ".git", ".idea", ".vscode", "target", "build", "out", "bin", "node_modules", ".gradle", ".venv", "venv", "__pycache__", "vendor":
 		return true
 	default:
 		return false
@@ -74,7 +74,7 @@ func InferServiceRoot(repo string, file string) string {
 		}
 	}
 	for dir := filepath.Dir(file); dir != repo && dir != "."; dir = filepath.Dir(dir) {
-		if fileExists(filepath.Join(dir, "pom.xml")) || fileExists(filepath.Join(dir, "build.gradle")) || fileExists(filepath.Join(dir, "build.gradle.kts")) {
+		if fileExists(filepath.Join(dir, "pom.xml")) || fileExists(filepath.Join(dir, "build.gradle")) || fileExists(filepath.Join(dir, "build.gradle.kts")) || fileExists(filepath.Join(dir, "go.mod")) {
 			return dir
 		}
 	}

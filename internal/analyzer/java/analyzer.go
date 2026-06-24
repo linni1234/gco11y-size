@@ -36,13 +36,13 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 		return framework.Result{}, err
 	}
 	result := normalizeSpringResult(springResult)
+	springEvidence := len(result.Operations) > 0
 	serviceNames := copyServiceNames(ctx.ServiceNames)
 	for root, serviceName := range result.ServiceNames {
 		serviceNames[root] = serviceName
 	}
 
 	javaFiles := 0
-	protoFiles := 0
 	err = filepath.WalkDir(ctx.Repo, func(path string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			result.Warnings = append(result.Warnings, fmt.Sprintf("could not read %s: %v", path, walkErr))
@@ -88,7 +88,6 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 			if basecommon.IsTestPath(ctx.Repo, path) {
 				return nil
 			}
-			protoFiles++
 			content, readErr := os.ReadFile(path)
 			if readErr != nil {
 				result.Warnings = append(result.Warnings, fmt.Sprintf("could not read %s: %v", basecommon.RelPath(ctx.Repo, path), readErr))
@@ -126,7 +125,7 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 		return framework.Result{}, err
 	}
 
-	if javaFiles > 0 || protoFiles > 0 || len(result.Operations) > 0 {
+	if javaFiles > 0 || springEvidence {
 		result.DetectedLanguages = javacommon.AppendUnique(result.DetectedLanguages, "java")
 		result.Warnings = filterNoSpringOperationsWarning(result.Warnings)
 	}
