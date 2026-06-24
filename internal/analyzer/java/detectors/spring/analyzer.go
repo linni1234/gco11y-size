@@ -43,6 +43,9 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 		if filepath.Ext(path) != ".java" {
 			return nil
 		}
+		if common.IsTestPath(ctx.Repo, path) {
+			return nil
+		}
 
 		javaFiles++
 		root := common.InferServiceRoot(ctx.Repo, path)

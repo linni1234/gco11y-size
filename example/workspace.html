@@ -811,7 +811,7 @@
       </div>
       <div class="rail-meta">
         <strong>Static application workspace sizing report</strong>
-        <span>Generated 2026-06-24 06:55:04 UTC</span>
+        <span>Generated 2026-06-24 09:58:43 UTC</span>
       </div>
       <nav class="rail-nav">
         <div class="workspace-nav-group active" data-workspace-group="overview">
@@ -861,6 +861,18 @@
           </div>
         </div>
         
+        <div class="workspace-nav-group" data-workspace-group="repo-retail-app">
+          <a class="workspace-tab workspace-main-tab" href="#repo-retail-app" data-workspace-tab="repo-retail-app">Retail App</a>
+          <div class="workspace-subnav">
+            <a class="workspace-section-link" href="#repo-retail-app" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app">Summary</a>
+            <a class="workspace-section-link" href="#repo-retail-app-source" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app-source">Source</a>
+            <a class="workspace-section-link" href="#repo-retail-app-processors" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app-processors">Processors</a>
+            <a class="workspace-section-link" href="#repo-retail-app-services" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app-services">Services</a>
+            <a class="workspace-section-link" href="#repo-retail-app-operations" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app-operations">Top Operations</a>
+            <a class="workspace-section-link" href="#repo-retail-app-graph" data-workspace-tab="repo-retail-app" data-workspace-section="repo-retail-app-graph">Service Graph</a>
+          </div>
+        </div>
+        
       </nav>
       <div class="rail-foot">Workspace estimate. Per-repo details are preserved while aggregate totals dedupe repeated services, operations, and edges.</div>
     </aside>
@@ -872,11 +884,11 @@
             <div class="hero-grid">
               <div class="hero-copy">
                 <span class="eyebrow">Workspace active series</span>
-                <h1>618</h1>
-                <p>419 low / 862 high across 3 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
+                <h1>1487</h1>
+                <p>1018 low / 2082 high across 4 repo(s). Source code can forecast metric cardinality, while exact active series still depend on runtime traces, label values, enabled dimensions, and metrics-generator configuration.</p>
               </div>
               <aside class="summary-panel" aria-label="Workspace summary">
-                <p>Scanned 3 repo(s), 3 service(s), 51 operation(s), and 2 service-graph edge(s) using the grafana-cloud-app-o11y profile.</p>
+                <p>Scanned 4 repo(s), 22 service(s), 186 operation(s), and 16 service-graph edge(s) using the grafana-cloud-app-o11y profile.</p>
                 <div class="summary-grid">
                   <div class="summary-card"><span class="summary-label">Histogram type</span><strong>native</strong></div>
                   <div class="summary-card"><span class="summary-label">Environments</span><strong>prod</strong></div>
@@ -888,10 +900,10 @@
           </section>
 
           <section class="stat-band" aria-label="Workspace sizing summary">
-            <div class="stat-item"><span class="stat-label">Repositories</span><strong>3</strong></div>
-            <div class="stat-item"><span class="stat-label">Services</span><strong>3</strong></div>
-            <div class="stat-item"><span class="stat-label">Operations</span><strong>51</strong></div>
-            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>2</strong></div>
+            <div class="stat-item"><span class="stat-label">Repositories</span><strong>4</strong></div>
+            <div class="stat-item"><span class="stat-label">Services</span><strong>22</strong></div>
+            <div class="stat-item"><span class="stat-label">Operations</span><strong>186</strong></div>
+            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>16</strong></div>
           </section>
 
         <section class="content-section" id="repositories">
@@ -900,7 +912,7 @@
               <span class="eyebrow">Workspace overview</span>
               <h2>Repository Overview</h2>
             </div>
-            <span class="section-count">3 repos</span>
+            <span class="section-count">4 repos</span>
           </div>
           <div class="table-card">
             <div class="table-scroll">
@@ -922,8 +934,8 @@
                     <td>https://github.com/spring-projects/spring-petclinic</td>
                     <td class="numeric">1</td>
                     <td class="numeric">16</td>
-                    <td class="numeric">2</td>
-                    <td class="numeric">315</td>
+                    <td class="numeric">0</td>
+                    <td class="numeric">291</td>
                   </tr>
                   
                   <tr>
@@ -933,6 +945,15 @@
                     <td class="numeric">20</td>
                     <td class="numeric">0</td>
                     <td class="numeric">121</td>
+                  </tr>
+                  
+                  <tr>
+                    <td><a class="pill workspace-tab" href="#repo-retail-app" data-workspace-tab="repo-retail-app">Retail App</a></td>
+                    <td>https://github.com/linni1234/retailobservability</td>
+                    <td class="numeric">19</td>
+                    <td class="numeric">135</td>
+                    <td class="numeric">16</td>
+                    <td class="numeric">893</td>
                   </tr>
                   
                 </tbody>
@@ -955,13 +976,13 @@
                 <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>span-metrics-count</code></td><td class="numeric">196</td><td class="numeric">294</td><td class="numeric">412</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">466</td><td class="numeric">699</td><td class="numeric">979</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
                   
-                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">196</td><td class="numeric">294</td><td class="numeric">412</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">466</td><td class="numeric">699</td><td class="numeric">979</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
-                  <tr><td><code>service-graph</code></td><td class="numeric">24</td><td class="numeric">24</td><td class="numeric">29</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  <tr><td><code>service-graph</code></td><td class="numeric">64</td><td class="numeric">64</td><td class="numeric">77</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
-                  <tr><td><code>host-info</code></td><td class="numeric">3</td><td class="numeric">6</td><td class="numeric">9</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  <tr><td><code>host-info</code></td><td class="numeric">22</td><td class="numeric">25</td><td class="numeric">47</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
                 </tbody>
               </table>
@@ -975,25 +996,120 @@
               <span class="eyebrow">Aggregate contributors</span>
               <h2>Top Service Contributors</h2>
             </div>
-            <span class="section-count">3 services</span>
+            <span class="section-count">22 services</span>
           </div>
           
           <div class="chart-card">
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <span class="chip">Spring Petclinic</span></span><span class="bar-value">315</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 50%"></span></span>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <span class="chip">Spring Petclinic</span></span><span class="bar-value">291</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 19%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <span class="chip">Retail App</span></span><span class="bar-value">219</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 14%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <span class="chip">Spring Real Example App</span></span><span class="bar-value">182</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 29%"></span></span>
+                <span class="bar-track"><span class="bar-fill" style="width: 12%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <span class="chip">Go App</span></span><span class="bar-value">121</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 19%"></span></span>
+                <span class="bar-track"><span class="bar-fill" style="width: 8%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">order-service <span class="chip">Retail App</span></span><span class="bar-value">79</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 5%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">pos-service <span class="chip">Retail App</span></span><span class="bar-value">73</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 4%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">goods-movement-service <span class="chip">Retail App</span></span><span class="bar-value">67</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 4%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">store-service <span class="chip">Retail App</span></span><span class="bar-value">67</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 4%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">inventory-service <span class="chip">Retail App</span></span><span class="bar-value">55</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">promotion-service <span class="chip">Retail App</span></span><span class="bar-value">49</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">pricing-service <span class="chip">Retail App</span></span><span class="bar-value">43</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">basket-service <span class="chip">Retail App</span></span><span class="bar-value">37</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">event-contracts <span class="chip">Retail App</span></span><span class="bar-value">37</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">product-service <span class="chip">Retail App</span></span><span class="bar-value">37</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">search-service <span class="chip">Retail App</span></span><span class="bar-value">33</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">checkout-service <span class="chip">Retail App</span></span><span class="bar-value">25</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">fiscal-service <span class="chip">Retail App</span></span><span class="bar-value">25</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">mock-payment-service <span class="chip">Retail App</span></span><span class="bar-value">25</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">shop-stock-service <span class="chip">Retail App</span></span><span class="bar-value">19</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">common-kafka <span class="chip">Retail App</span></span><span class="bar-value">1</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">common-security <span class="chip">Retail App</span></span><span class="bar-value">1</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">common-web <span class="chip">Retail App</span></span><span class="bar-value">1</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
             </div>
@@ -1034,12 +1150,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1059,12 +1175,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1079,12 +1195,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1094,7 +1210,7 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1104,12 +1220,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /articles</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1124,7 +1240,7 @@
               <span class="eyebrow">Aggregate dependency hints</span>
               <h2>Workspace Service Graph</h2>
             </div>
-            <span class="section-count">2 edges</span>
+            <span class="section-count">16 edges</span>
           </div>
           
           <div class="table-card">
@@ -1133,9 +1249,37 @@
                 <thead><tr><th>Source</th><th>Target</th><th>Protocol</th><th>Repository</th><th>Confidence</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>spring-petclinic</code></td><td><code>github.com</code></td><td>http</td><td>Spring Petclinic</td><td>medium</td></tr>
+                  <tr><td><code>api-gateway</code></td><td><code>basket-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
                   
-                  <tr><td><code>spring-petclinic</code></td><td><code>www.apache.org</code></td><td>http</td><td>Spring Petclinic</td><td>medium</td></tr>
+                  <tr><td><code>api-gateway</code></td><td><code>checkout-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>fiscal-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>goods-movement-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>inventory-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>mock-payment-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>order-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>pos-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>pricing-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>product-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>promotion-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>search-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>shop-stock-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>store-service</code></td><td>http</td><td>Retail App</td><td>high</td></tr>
+                  
+                  <tr><td><code>search-service</code></td><td><code>opensearch</code></td><td>http</td><td>Retail App</td><td>medium</td></tr>
+                  
+                  <tr><td><code>search-service</code></td><td><code>retailapp</code></td><td>http</td><td>Retail App</td><td>medium</td></tr>
                   
                 </tbody>
               </table>
@@ -1168,7 +1312,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/gothinkster/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-395035316/spring-boot-realworld-example-app</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-873958723/spring-boot-realworld-example-app</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1235,17 +1379,17 @@
             <div class="bar-list">
               
               <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> POST /</span><span class="bar-value">12</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
-              </div>
-              
-              <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1260,17 +1404,17 @@
               </div>
               
               <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /articles/{slug}</span><span class="bar-value">12</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> DELETE /articles/{slug}</span><span class="bar-value">12</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
-              </div>
-              
-              <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /articles/{slug}</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1290,12 +1434,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> GET /user</span><span class="bar-value">12</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-boot-realworld-example-app <code>http</code> PUT /user</span><span class="bar-value">12</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1331,14 +1475,14 @@
               <span class="eyebrow">Repository drilldown</span>
               <h2>Spring Petclinic</h2>
             </div>
-            <span class="section-count">315 expected series</span>
+            <span class="section-count">291 expected series</span>
           </div>
 
           <div class="stat-band" aria-label="Spring Petclinic summary">
             <div class="stat-item"><span class="stat-label">Services</span><strong>1</strong></div>
             <div class="stat-item"><span class="stat-label">Operations</span><strong>16</strong></div>
-            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>2</strong></div>
-            <div class="stat-item"><span class="stat-label">Active series</span><strong>315</strong></div>
+            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>0</strong></div>
+            <div class="stat-item"><span class="stat-label">Active series</span><strong>291</strong></div>
           </div>
 
           <div class="detail-panel" id="repo-spring-petclinic-source" style="margin-top: 16px;">
@@ -1347,7 +1491,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/spring-projects/spring-petclinic</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-4121404306/spring-petclinic</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3305610011/spring-petclinic</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1372,7 +1516,7 @@
                   
                   <tr><td><code>span-metrics-latency</code></td><td class="numeric">96</td><td class="numeric">144</td><td class="numeric">202</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
                   
-                  <tr><td><code>service-graph</code></td><td class="numeric">24</td><td class="numeric">24</td><td class="numeric">29</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  <tr><td><code>service-graph</code></td><td class="numeric">0</td><td class="numeric">0</td><td class="numeric">0</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
                   
                   <tr><td><code>host-info</code></td><td class="numeric">1</td><td class="numeric">3</td><td class="numeric">4</td><td>unique service/environment/instance combinations, target_info style</td></tr>
                   
@@ -1395,7 +1539,7 @@
                 <thead><tr><th>Service</th><th>Root</th><th>Source</th><th class="numeric">Operations</th><th class="numeric">Edges</th></tr></thead>
                 <tbody>
                   
-                  <tr><td><code>spring-petclinic</code></td><td>.</td><td>path</td><td class="numeric">16</td><td class="numeric">2</td></tr>
+                  <tr><td><code>spring-petclinic</code></td><td>.</td><td>path</td><td class="numeric">16</td><td class="numeric">0</td></tr>
                   
                 </tbody>
               </table>
@@ -1434,12 +1578,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1469,22 +1613,22 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
-                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
-              </div>
-              
-              <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/edit</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
                 <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> POST /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">spring-petclinic <code>http</code> GET /owners/{ownerId}/pets/{petId}/visits/new</span><span class="bar-value">18</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1502,23 +1646,10 @@
               <span class="eyebrow">Static dependency hints</span>
               <h2>Spring Petclinic Service Graph</h2>
             </div>
-            <span class="section-count">2 edges</span>
+            <span class="section-count">0 edges</span>
           </div>
           
-          <div class="table-card">
-            <div class="table-scroll">
-              <table>
-                <thead><tr><th>Source</th><th>Target</th><th>Protocol</th><th>Confidence</th><th>Source file</th></tr></thead>
-                <tbody>
-                  
-                  <tr><td><code>spring-petclinic</code></td><td><code>github.com</code></td><td>http</td><td>medium</td><td>src/test/java/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.java</td></tr>
-                  
-                  <tr><td><code>spring-petclinic</code></td><td><code>www.apache.org</code></td><td>http</td><td>medium</td><td>src/test/java/org/springframework/samples/petclinic/MySqlIntegrationTests.java</td></tr>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <div class="empty-state">No service graph edges were detected for this repository.</div>
           
         </section>
         
@@ -1544,7 +1675,7 @@
                 <tbody>
                   <tr><th>Input</th><td>https://github.com/gothinkster/golang-gin-realworld-example-app</td></tr>
                   <tr><th>Type</th><td>git</td></tr>
-                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-587426531/golang-gin-realworld-example-app</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-3457712358/golang-gin-realworld-example-app</td></tr>
                   <tr><th>Histogram type</th><td>native</td></tr>
                   <tr><th>Environments</th><td>prod</td></tr>
                   <tr><th>Instances / service</th><td>1</td></tr>
@@ -1611,12 +1742,12 @@
             <div class="bar-list">
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1641,12 +1772,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> POST /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/articles/{slug}/comments</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1691,12 +1822,12 @@
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> PUT /api/user</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
               <div class="usage-bar">
-                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> PUT /api/user</span><span class="bar-value">6</span></div>
+                <div class="bar-meta"><span class="bar-name">golang-gin-realworld-example-app <code>http</code> GET /api/user</span><span class="bar-value">6</span></div>
                 <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
               </div>
               
@@ -1723,6 +1854,287 @@
           </div>
           
           <div class="empty-state">No service graph edges were detected for this repository.</div>
+          
+        </section>
+        
+        <section class="workspace-view content-section" id="repo-retail-app" data-workspace-view="repo-retail-app">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Repository drilldown</span>
+              <h2>Retail App</h2>
+            </div>
+            <span class="section-count">893 expected series</span>
+          </div>
+
+          <div class="stat-band" aria-label="Retail App summary">
+            <div class="stat-item"><span class="stat-label">Services</span><strong>19</strong></div>
+            <div class="stat-item"><span class="stat-label">Operations</span><strong>135</strong></div>
+            <div class="stat-item"><span class="stat-label">Service graph edges</span><strong>16</strong></div>
+            <div class="stat-item"><span class="stat-label">Active series</span><strong>893</strong></div>
+          </div>
+
+          <div class="detail-panel" id="repo-retail-app-source" style="margin-top: 16px;">
+            <div class="table-scroll">
+              <table>
+                <tbody>
+                  <tr><th>Input</th><td>https://github.com/linni1234/retailobservability</td></tr>
+                  <tr><th>Type</th><td>git</td></tr>
+                  <tr><th>Resolved path</th><td>/var/folders/3y/pv6jg57n1t7cdkmf8c5vfhmm0000gn/T/gco11y-size-2421417615/retailobservability</td></tr>
+                  <tr><th>Histogram type</th><td>native</td></tr>
+                  <tr><th>Environments</th><td>prod</td></tr>
+                  <tr><th>Instances / service</th><td>1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section-heading" id="repo-retail-app-processors" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Generated metrics</span>
+              <h2>Retail App Processors</h2>
+            </div>
+          </div>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Processor</th><th class="numeric">Low</th><th class="numeric">Expected</th><th class="numeric">High</th><th>Formula</th></tr></thead>
+                <tbody>
+                  
+                  <tr><td><code>span-metrics-count</code></td><td class="numeric">270</td><td class="numeric">405</td><td class="numeric">567</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x 1 count counter</td></tr>
+                  
+                  <tr><td><code>span-metrics-latency</code></td><td class="numeric">270</td><td class="numeric">405</td><td class="numeric">567</td><td>unique span-name label sets x environments x status values x custom dimension cardinality x instance label values x (native histogram series)</td></tr>
+                  
+                  <tr><td><code>service-graph</code></td><td class="numeric">64</td><td class="numeric">64</td><td class="numeric">77</td><td>directed service edges x environments x instance label values x (request_total &#43; failed_total &#43; 2 x (native histogram series))</td></tr>
+                  
+                  <tr><td><code>host-info</code></td><td class="numeric">19</td><td class="numeric">19</td><td class="numeric">38</td><td>unique service/environment/instance combinations, target_info style</td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section-heading" id="repo-retail-app-services" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Detected services</span>
+              <h2>Retail App Services</h2>
+            </div>
+            <span class="section-count">19 services</span>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Service</th><th>Root</th><th>Source</th><th class="numeric">Operations</th><th class="numeric">Edges</th></tr></thead>
+                <tbody>
+                  
+                  <tr><td><code>api-gateway</code></td><td>services/api-gateway</td><td>config</td><td class="numeric">27</td><td class="numeric">14</td></tr>
+                  
+                  <tr><td><code>basket-service</code></td><td>services/basket-service</td><td>config</td><td class="numeric">6</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>checkout-service</code></td><td>services/checkout-service</td><td>config</td><td class="numeric">4</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>common-kafka</code></td><td>libs/common-kafka</td><td>path</td><td class="numeric">0</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>common-security</code></td><td>libs/common-security</td><td>path</td><td class="numeric">0</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>common-web</code></td><td>libs/common-web</td><td>path</td><td class="numeric">0</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>event-contracts</code></td><td>libs/event-contracts</td><td>path</td><td class="numeric">6</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>fiscal-service</code></td><td>services/fiscal-service</td><td>config</td><td class="numeric">4</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>goods-movement-service</code></td><td>services/goods-movement-service</td><td>config</td><td class="numeric">11</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>inventory-service</code></td><td>services/inventory-service</td><td>config</td><td class="numeric">9</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>mock-payment-service</code></td><td>services/mock-payment-service</td><td>config</td><td class="numeric">4</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>order-service</code></td><td>services/order-service</td><td>config</td><td class="numeric">13</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>pos-service</code></td><td>services/pos-service</td><td>config</td><td class="numeric">12</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>pricing-service</code></td><td>services/pricing-service</td><td>config</td><td class="numeric">7</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>product-service</code></td><td>services/product-service</td><td>config</td><td class="numeric">6</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>promotion-service</code></td><td>services/promotion-service</td><td>config</td><td class="numeric">8</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>search-service</code></td><td>services/search-service</td><td>config</td><td class="numeric">4</td><td class="numeric">2</td></tr>
+                  
+                  <tr><td><code>shop-stock-service</code></td><td>services/shop-stock-service</td><td>config</td><td class="numeric">3</td><td class="numeric">0</td></tr>
+                  
+                  <tr><td><code>store-service</code></td><td>services/store-service</td><td>config</td><td class="numeric">11</td><td class="numeric">0</td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+
+          <div class="section-heading" id="repo-retail-app-operations" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Span metric contributors</span>
+              <h2>Retail App Top Operations</h2>
+            </div>
+          </div>
+          
+          <div class="chart-card">
+            <div class="bar-list">
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /adjustments/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /approvals/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /baskets/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /carts/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /checkouts/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /claims/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /coupons/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /fallback/unavailable</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /fiscal/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /goods-receipts/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /ledger/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /movements/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /orders/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /payments/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /price-lists/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /prices/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /products/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /promotions/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /receipts/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+              <div class="usage-bar">
+                <div class="bar-meta"><span class="bar-name">api-gateway <code>http</code> ANY /returns/**</span><span class="bar-value">6</span></div>
+                <span class="bar-track"><span class="bar-fill" style="width: 3%"></span></span>
+              </div>
+              
+            </div>
+          </div>
+          
+
+          <div class="section-heading" id="repo-retail-app-graph" style="margin-top: 28px;">
+            <div>
+              <span class="eyebrow">Static dependency hints</span>
+              <h2>Retail App Service Graph</h2>
+            </div>
+            <span class="section-count">16 edges</span>
+          </div>
+          
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Source</th><th>Target</th><th>Protocol</th><th>Confidence</th><th>Source file</th></tr></thead>
+                <tbody>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>basket-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>checkout-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>fiscal-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>goods-movement-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>inventory-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>mock-payment-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>order-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>pos-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>pricing-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>product-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>promotion-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>search-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>shop-stock-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>api-gateway</code></td><td><code>store-service</code></td><td>http</td><td>high</td><td>services/api-gateway/src/main/resources/application.yml</td></tr>
+                  
+                  <tr><td><code>search-service</code></td><td><code>opensearch</code></td><td>http</td><td>medium</td><td>services/search-service/src/main/java/com/retailapp/search/service/OpenSearchHttpClient.java</td></tr>
+                  
+                  <tr><td><code>search-service</code></td><td><code>retailapp</code></td><td>http</td><td>medium</td><td>services/search-service/src/main/java/com/retailapp/search/service/OpenSearchHttpClient.java</td></tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
           
         </section>
         

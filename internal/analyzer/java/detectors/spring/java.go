@@ -104,8 +104,8 @@ func parseJavaSource(serviceName string, sourcePath string, source string) javaP
 		}
 	}
 
-	result.edges = append(result.edges, parseOutboundEdges(serviceName, sourcePath, source)...)
-	result.risks = append(result.risks, parseJavaRisks(sourcePath, source)...)
+	result.edges = append(result.edges, parseOutboundEdges(serviceName, sourcePath, clean)...)
+	result.risks = append(result.risks, parseJavaRisks(sourcePath, clean)...)
 	return result
 }
 
