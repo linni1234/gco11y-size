@@ -14,6 +14,7 @@ import (
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/messaging"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/otel"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/outbound"
+	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/quarkus"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/routing"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/servlet"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java/detectors/spring"
@@ -40,6 +41,14 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 	serviceNames := copyServiceNames(ctx.ServiceNames)
 	for root, serviceName := range result.ServiceNames {
 		serviceNames[root] = serviceName
+	}
+	quarkusContexts, quarkusFindings, quarkusWarnings := quarkus.Discover(ctx.Repo)
+	result.ConfigFindings = append(result.ConfigFindings, quarkusFindings...)
+	result.Warnings = append(result.Warnings, quarkusWarnings...)
+	for root, quarkusContext := range quarkusContexts {
+		if serviceNames[root] == "" && quarkusContext.ApplicationName != "" {
+			serviceNames[root] = quarkusContext.ApplicationName
+		}
 	}
 
 	javaFiles := 0
@@ -71,11 +80,29 @@ func (Analyzer) Analyze(ctx framework.Context) (framework.Result, error) {
 			}
 			sourcePath := basecommon.RelPath(ctx.Repo, path)
 			source := string(content)
+			quarkusContext := quarkusContexts[root]
+			if quarkusContext.IsQuarkus {
+				result.Operations = append(result.Operations, jaxrs.OperationsWithOptions(
+					serviceName,
+					sourcePath,
+					source,
+					jaxrs.Options{
+						BasePath:              quarkusContext.RESTBasePath(),
+						Detector:              "quarkus-rest",
+						Confidence:            "high",
+						SkipRestClientClasses: true,
+					},
+				)...)
+				routeResult := quarkus.ReactiveRouteOperations(quarkusContext, serviceName, sourcePath, source)
+				result.Operations = append(result.Operations, routeResult.Operations...)
+				result.Warnings = append(result.Warnings, routeResult.Warnings...)
+			} else {
+				result.Operations = append(result.Operations, jaxrs.Operations(serviceName, sourcePath, source)...)
+			}
 			result.Operations = append(result.Operations, runOperationDetectors(
 				serviceName,
 				sourcePath,
 				source,
-				jaxrs.Operations,
 				servlet.Operations,
 				routing.Operations,
 				grpc.JavaOperations,

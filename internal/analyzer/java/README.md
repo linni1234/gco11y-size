@@ -8,6 +8,7 @@ The Java analyzer scans Java source, Spring configuration, servlet metadata, pro
 - Spring Cloud Gateway routes from configuration, including route predicates such as path matches and downstream service URIs.
 - Spring messaging consumers from `@KafkaListener` and `@RabbitListener`.
 - JAX-RS and Jakarta REST routes from `@Path`, `@GET`, `@POST`, `@PUT`, `@DELETE`, `@PATCH`, `@HEAD`, and `@OPTIONS`.
+- Quarkus HTTP routes from Quarkus-owned JAX-RS resources and `@Route`/`@RouteBase`, including `quarkus.http.root-path`, `quarkus.rest.path`, and `quarkus.application.name` config hints.
 - Servlet routes from `@WebServlet`, `web.xml`, and dynamic servlet mapping patterns.
 - JDK HTTP server contexts from `HttpServer.createContext(...)`.
 - Generic Java routing hints for common route-registration styles such as Javalin/Spark-like APIs.
@@ -21,7 +22,8 @@ The Java analyzer scans Java source, Spring configuration, servlet metadata, pro
 ## What Is Missing Or Limited
 
 - Dynamic routes built from variables, reflection, runtime registration, service discovery, or external route databases are only partially detected.
-- Framework-specific Java stacks beyond the current detectors may be missed, for example Micronaut, Quarkus RESTEasy Reactive, Vert.x Web, Helidon, Play Framework, Dropwizard/Jersey edge cases, and custom internal frameworks.
+- Framework-specific Java stacks beyond the current detectors may be missed, for example Micronaut, Vert.x Web, Helidon, Play Framework, Dropwizard/Jersey edge cases, and custom internal frameworks.
+- Quarkus Reactive Messaging channels and Quarkus REST Client outbound edges are not resolved from configuration yet.
 - Annotation aliases, meta-annotations, Kotlin source, Scala source, and generated JVM bytecode are not analyzed deeply.
 - Request methods or paths hidden behind constants may be missed unless the detector can resolve them from simple string literals.
 - Feign and HTTP client edge detection is static and best-effort. It cannot prove that a call executes at runtime.

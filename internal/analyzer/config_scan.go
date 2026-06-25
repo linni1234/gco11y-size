@@ -13,10 +13,13 @@ import (
 )
 
 var (
-	serviceNamePatterns = []*regexp.Regexp{
-		regexp.MustCompile(`(?im)^\s*otel\.service\.name\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
-		regexp.MustCompile(`(?im)\bOTEL_SERVICE_NAME\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
-		regexp.MustCompile(`(?im)\bservice\.name\s*=\s*([A-Za-z0-9_.-]+)`),
+	telemetryServiceNamePatterns = []serviceNamePattern{
+		{name: "otel.service.name", re: regexp.MustCompile(`(?im)^\s*otel\.service\.name\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
+		{name: "OTEL_SERVICE_NAME", re: regexp.MustCompile(`(?im)\bOTEL_SERVICE_NAME\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
+		{name: "service.name", re: regexp.MustCompile(`(?im)\bservice\.name\s*=\s*([A-Za-z0-9_.-]+)`)},
+	}
+	fallbackServiceNamePatterns = []serviceNamePattern{
+		{name: "quarkus.application.name", re: regexp.MustCompile(`(?im)^\s*quarkus\.application\.name\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
 	}
 	environmentPatterns = []*regexp.Regexp{
 		regexp.MustCompile(`(?im)^\s*spring\.profiles\.active\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
@@ -24,6 +27,11 @@ var (
 		regexp.MustCompile(`(?im)\benvironment\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
 	}
 )
+
+type serviceNamePattern struct {
+	name string
+	re   *regexp.Regexp
+}
 
 func scanConfig(repo string, otelConfig string) framework.Result {
 	result := framework.Result{ServiceNames: map[string]string{}}
@@ -76,18 +84,11 @@ func parseConfigFile(repo string, path string, result *framework.Result) {
 	source := common.RelPath(repo, path)
 	root := common.InferServiceRoot(repo, path)
 
-	for _, pattern := range serviceNamePatterns {
-		for _, match := range pattern.FindAllStringSubmatch(content, -1) {
-			serviceName := common.SanitizeServiceName(match[1])
-			result.ServiceNames[root] = serviceName
-			result.ConfigFindings = append(result.ConfigFindings, model.ConfigFinding{
-				Kind:    "service-name",
-				Name:    "service.name",
-				Value:   serviceName,
-				Source:  source,
-				Service: serviceName,
-			})
-		}
+	for _, pattern := range telemetryServiceNamePatterns {
+		recordConfigServiceName(root, source, pattern.name, pattern.re.FindAllStringSubmatch(content, -1), result, true)
+	}
+	for _, pattern := range fallbackServiceNamePatterns {
+		recordConfigServiceName(root, source, pattern.name, pattern.re.FindAllStringSubmatch(content, -1), result, false)
 	}
 
 	for _, pattern := range environmentPatterns {
@@ -133,6 +134,25 @@ func parseConfigFile(repo string, path string, result *framework.Result) {
 				Area:     "custom dimensions",
 				Message:  fmt.Sprintf("configured dimension %q is likely high-cardinality", dimension),
 				Source:   source,
+			})
+		}
+	}
+}
+
+func recordConfigServiceName(root string, source string, name string, matches [][]string, result *framework.Result, override bool) {
+	for _, match := range matches {
+		if len(match) < 2 {
+			continue
+		}
+		serviceName := common.SanitizeServiceName(match[1])
+		if override || result.ServiceNames[root] == "" {
+			result.ServiceNames[root] = serviceName
+			result.ConfigFindings = append(result.ConfigFindings, model.ConfigFinding{
+				Kind:    "service-name",
+				Name:    name,
+				Value:   serviceName,
+				Source:  source,
+				Service: serviceName,
 			})
 		}
 	}

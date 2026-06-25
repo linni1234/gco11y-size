@@ -180,7 +180,7 @@ Remote repositories are shallow-cloned into a temporary worktree and removed aft
 
 | Language | Coverage summary | Details |
 | --- | --- | --- |
-| Java | Spring MVC, Spring Cloud Gateway, JAX-RS, servlets, gRPC/protobuf, messaging, outbound dependencies, and OpenTelemetry hints. | [Java analyzer README](internal/analyzer/java/README.md) |
+| Java | Spring MVC, Spring Cloud Gateway, Quarkus HTTP/config, JAX-RS, servlets, gRPC/protobuf, messaging, outbound dependencies, and OpenTelemetry hints. | [Java analyzer README](internal/analyzer/java/README.md) |
 | Go | `net/http`, Gin, Echo, Chi, Gorilla mux, Fiber, gRPC/protobuf, Connect, messaging, outbound dependencies, and OpenTelemetry hints. | [Go analyzer README](internal/analyzer/golang/README.md) |
 
 Operations include protocol, confidence, detector metadata, source file, and handler hints where available. The shared merge layer deduplicates operations by:

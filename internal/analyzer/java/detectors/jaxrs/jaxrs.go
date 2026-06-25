@@ -13,12 +13,32 @@ type annotationMapping struct {
 	paths   []string
 }
 
+type Options struct {
+	BasePath              string
+	Detector              string
+	Confidence            string
+	SkipRestClientClasses bool
+}
+
 func Operations(serviceName string, sourcePath string, source string) []model.Operation {
+	return OperationsWithOptions(serviceName, sourcePath, source, Options{SkipRestClientClasses: true})
+}
+
+func OperationsWithOptions(serviceName string, sourcePath string, source string, opts Options) []model.Operation {
+	detector := opts.Detector
+	if detector == "" {
+		detector = "jax-rs"
+	}
+	confidence := opts.Confidence
+	if confidence == "" {
+		confidence = "high"
+	}
 	clean := javacommon.StripJavaComments(source)
 	lines := strings.Split(clean, "\n")
 	var pending []string
 	classPaths := []string{""}
 	className := ""
+	skipClass := false
 	var operations []model.Operation
 
 	for i := 0; i < len(lines); i++ {
@@ -40,29 +60,34 @@ func Operations(serviceName string, sourcePath string, source string) []model.Op
 		}
 		if matches := javacommon.JavaClassDeclRE.FindStringSubmatch(trimmed); len(matches) == 2 {
 			className = matches[1]
+			skipClass = opts.SkipRestClientClasses && hasAnnotation(pending, "RegisterRestClient")
 			if paths := paths(pending); len(paths) > 0 {
 				classPaths = paths
+			} else {
+				classPaths = []string{""}
 			}
 			pending = nil
 			continue
 		}
 		if matches := javacommon.JavaMethodDeclRE.FindStringSubmatch(trimmed); len(matches) == 2 {
 			methodName := matches[1]
-			for _, mapping := range methodMappings(pending) {
-				for _, base := range classPaths {
-					for _, path := range mapping.paths {
-						for _, method := range mapping.methods {
-							operations = append(operations, javacommon.Operation(
-								serviceName,
-								"SERVER",
-								"http",
-								method,
-								basecommon.NormalizeRoute(javacommon.JoinRoutes(base, path)),
-								strings.Trim(className+"."+methodName, "."),
-								sourcePath,
-								"jax-rs",
-								"high",
-							))
+			if !skipClass {
+				for _, mapping := range methodMappings(pending) {
+					for _, base := range classPaths {
+						for _, path := range mapping.paths {
+							for _, method := range mapping.methods {
+								operations = append(operations, javacommon.Operation(
+									serviceName,
+									"SERVER",
+									"http",
+									method,
+									basecommon.NormalizeRoute(javacommon.JoinRoutes(opts.BasePath, javacommon.JoinRoutes(base, path))),
+									strings.Trim(className+"."+methodName, "."),
+									sourcePath,
+									detector,
+									confidence,
+								))
+							}
 						}
 					}
 				}
@@ -75,6 +100,15 @@ func Operations(serviceName string, sourcePath string, source string) []model.Op
 		}
 	}
 	return operations
+}
+
+func hasAnnotation(annotations []string, name string) bool {
+	for _, annotation := range annotations {
+		if javacommon.SimpleAnnotationName(annotation) == name {
+			return true
+		}
+	}
+	return false
 }
 
 func paths(annotations []string) []string {
