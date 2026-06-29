@@ -13,6 +13,7 @@ import (
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/framework"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/golang"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java"
+	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/nodejs"
 	"github.com/nilslindholm/metricgenerationsizer/internal/model"
 )
 
@@ -54,6 +55,7 @@ func Analyze(repo string, otelConfig string) (model.Analysis, error) {
 func registeredAnalyzers() []framework.Analyzer {
 	return []framework.Analyzer{
 		java.New(),
+		nodejs.New(),
 		golang.New(),
 		dotnet.New(),
 	}
