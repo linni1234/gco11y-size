@@ -22,7 +22,7 @@ Active series are driven by label cardinality, not request volume alone. Source 
 - Scans local folders, GitHub/GitLab HTTPS URLs, SSH URLs, and shorthand Git inputs.
 - Supports single-repo and multi-repo workspace reports with the same output format.
 - Produces standalone `report.html` and `report.json` files.
-- Supports Java and Go analyzers through a shared analyzer interface.
+- Supports Java, Go, and .NET/C# analyzers through a shared analyzer interface.
 - Estimates span metrics, service graph metrics, and host or target info separately.
 - Supports native, classic, and dual histogram sizing.
 - Supports environment, instance, processor, custom dimension, and gateway method-expansion controls.
@@ -182,6 +182,7 @@ Remote repositories are shallow-cloned into a temporary worktree and removed aft
 | --- | --- | --- |
 | Java | Spring MVC, Spring Cloud Gateway, Quarkus HTTP/config, JAX-RS, servlets, gRPC/protobuf, messaging, outbound dependencies, and OpenTelemetry hints. | [Java analyzer README](internal/analyzer/java/README.md) |
 | Go | `net/http`, Gin, Echo, Chi, Gorilla mux, Fiber, gRPC/protobuf, Connect, messaging, outbound dependencies, and OpenTelemetry hints. | [Go analyzer README](internal/analyzer/golang/README.md) |
+| .NET/C# | ASP.NET Core Minimal APIs/controllers/Razor/Blazor route hints, SignalR, YARP, gRPC/protobuf, EF/data clients, messaging/background frameworks, Aspire/Orleans hints, and OpenTelemetry hints. | [.NET analyzer README](internal/analyzer/dotnet/README.md) |
 
 Operations include protocol, confidence, detector metadata, source file, and handler hints where available. The shared merge layer deduplicates operations by:
 
@@ -327,6 +328,7 @@ cmd/gco11y-size/          CLI entrypoint
 internal/analyzer/        Analyzer orchestration and merge layer
 internal/analyzer/java/   Java analyzer and detectors
 internal/analyzer/golang/ Go analyzer and detectors
+internal/analyzer/dotnet/ .NET/C# analyzer and detectors
 internal/config/          CLI and metrics-generator defaults
 internal/estimator/       Active-series sizing formulas
 internal/report/          HTML and JSON rendering

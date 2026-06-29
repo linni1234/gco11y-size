@@ -15,8 +15,10 @@ import (
 var (
 	telemetryServiceNamePatterns = []serviceNamePattern{
 		{name: "otel.service.name", re: regexp.MustCompile(`(?im)^\s*otel\.service\.name\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
-		{name: "OTEL_SERVICE_NAME", re: regexp.MustCompile(`(?im)\bOTEL_SERVICE_NAME\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
+		{name: "OTEL_SERVICE_NAME", re: regexp.MustCompile(`(?im)["']?\bOTEL_SERVICE_NAME\b["']?\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
+		{name: "OTEL_RESOURCE_ATTRIBUTES.service.name", re: regexp.MustCompile(`(?im)\bOTEL_RESOURCE_ATTRIBUTES\b["']?\s*[:=]\s*["']?[^"'\n]*\bservice\.name=([A-Za-z0-9_.-]+)`)},
 		{name: "service.name", re: regexp.MustCompile(`(?im)\bservice\.name\s*=\s*([A-Za-z0-9_.-]+)`)},
+		{name: "service.name", re: regexp.MustCompile(`(?im)["']\s*service\.name\s*["']\s*:\s*["']([A-Za-z0-9_.-]+)["']`)},
 	}
 	fallbackServiceNamePatterns = []serviceNamePattern{
 		{name: "quarkus.application.name", re: regexp.MustCompile(`(?im)^\s*quarkus\.application\.name\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`)},
@@ -24,6 +26,8 @@ var (
 	environmentPatterns = []*regexp.Regexp{
 		regexp.MustCompile(`(?im)^\s*spring\.profiles\.active\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
 		regexp.MustCompile(`(?im)\bdeployment\.environment\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
+		regexp.MustCompile(`(?im)["']?\bASPNETCORE_ENVIRONMENT\b["']?\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
+		regexp.MustCompile(`(?im)["']?\bDOTNET_ENVIRONMENT\b["']?\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
 		regexp.MustCompile(`(?im)\benvironment\s*[:=]\s*["']?([A-Za-z0-9_.-]+)["']?`),
 	}
 )
@@ -160,7 +164,7 @@ func recordConfigServiceName(root string, source string, name string, matches []
 
 func environmentsFromFilename(path string) []string {
 	name := strings.ToLower(filepath.Base(path))
-	prefixes := []string{"application-", "bootstrap-"}
+	prefixes := []string{"application-", "bootstrap-", "appsettings."}
 	for _, prefix := range prefixes {
 		if strings.HasPrefix(name, prefix) {
 			withoutPrefix := strings.TrimPrefix(name, prefix)

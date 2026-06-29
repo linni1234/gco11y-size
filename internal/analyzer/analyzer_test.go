@@ -225,6 +225,57 @@ var analyzerFixtureCases = []fixtureCase{
 		},
 		RequiredRiskAreas: []string{"span attributes"},
 	},
+	{
+		Name:                     "dotnet-service",
+		AnalyzerIDs:              []string{"dotnet"},
+		ServiceNames:             []string{"dotnet-checkout"},
+		OperationCount:           28,
+		EdgeCount:                16,
+		DetectedLanguageContains: []string{"csharp", "csharp/aspnet-core"},
+		RequiredOperations: []operationExpectation{
+			httpOperation("dotnet-checkout", "SERVER", "GET", "/api/v1/orders/{id}"),
+			httpOperation("dotnet-checkout", "SERVER", "POST", "/api/v1/orders"),
+			httpOperation("dotnet-checkout", "SERVER", "GET", "/api/orders/{id}"),
+			httpOperation("dotnet-checkout", "SERVER", "GET", "/orders/page"),
+			httpOperation("dotnet-checkout", "SERVER", "GET", "/dashboard"),
+			{Service: "dotnet-checkout", Kind: "SERVER", Protocol: "grpc", Method: "RPC", Route: "checkout.Greeter/SayHello"},
+			{Service: "dotnet-checkout", Kind: "CONSUMER", Protocol: "kafka", Method: "MESSAGE", Route: "kafka:orders.created"},
+			{Service: "dotnet-checkout", Kind: "PRODUCER", Protocol: "rabbit", Method: "MESSAGE", Route: "rabbit:events/order.created"},
+			{Service: "dotnet-checkout", Kind: "CONSUMER", Protocol: "servicebus", Method: "MESSAGE", Route: "servicebus:billing.commands"},
+			{Service: "dotnet-checkout", Kind: "CONSUMER", Protocol: "masstransit", Method: "MESSAGE", Route: "masstransit:orders-masstransit"},
+			{Service: "dotnet-checkout", Kind: "INTERNAL", Protocol: "custom", Method: "SPAN", Route: "reconcile-orders"},
+		},
+		RequiredEdges: []edgeExpectation{
+			{SourceService: "dotnet-checkout", TargetService: "sqlserver:orders", Protocol: "sqlserver"},
+			{SourceService: "dotnet-checkout", TargetService: "postgresql:readmodel", Protocol: "postgresql"},
+			{SourceService: "dotnet-checkout", TargetService: "redis:redis.internal", Protocol: "redis"},
+			{SourceService: "dotnet-checkout", TargetService: "mongodb:orders", Protocol: "mongodb"},
+			{SourceService: "dotnet-checkout", TargetService: "inventory-service.internal", Protocol: "http"},
+			{SourceService: "dotnet-checkout", TargetService: "inventory-grpc.internal", Protocol: "grpc"},
+			{SourceService: "dotnet-checkout", TargetService: "kafka:orders.audit", Protocol: "kafka"},
+			{SourceService: "dotnet-checkout", TargetService: "rabbit:events/order.created", Protocol: "rabbit"},
+			{SourceService: "dotnet-checkout", TargetService: "servicebus:shipping.events", Protocol: "servicebus"},
+		},
+		DetectorExpectations: []detectorExpectation{
+			{
+				Operation: httpOperation("dotnet-checkout", "SERVER", "GET", "/api/v1/orders/{id}"),
+				Required:  []string{"aspnet-core-minimal-api"},
+			},
+			{
+				Operation: operationExpectation{Service: "dotnet-checkout", Kind: "SERVER", Protocol: "grpc", Method: "RPC", Route: "checkout.Greeter/SayHello"},
+				Required:  []string{"protobuf"},
+			},
+		},
+		RequiredConfigFindings: []configFindingExpectation{
+			{Kind: "service-name", Name: "OTEL_SERVICE_NAME", Value: "dotnet-checkout"},
+			{Kind: "connection-string", Name: "OrdersDb", Value: "sqlserver"},
+			{Kind: "yarp-route", Name: "products", Value: "products"},
+			{Kind: "dotnet-data-framework", Name: "entity-framework", Value: "detected"},
+			{Kind: "dotnet-background-framework", Name: "hangfire", Value: "detected"},
+			{Kind: "dotnet-aspire-resource", Name: "AddPostgres", Value: "orders-db"},
+		},
+		RequiredRiskAreas: []string{"span attributes"},
+	},
 }
 
 func TestAnalyzerFixtures(t *testing.T) {

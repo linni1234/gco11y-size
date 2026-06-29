@@ -9,7 +9,7 @@ import (
 
 func ShouldSkipDir(name string) bool {
 	switch name {
-	case ".git", ".idea", ".vscode", "target", "build", "out", "bin", "node_modules", ".gradle", ".venv", "venv", "__pycache__", "vendor":
+	case ".git", ".idea", ".vscode", ".vs", "target", "build", "out", "bin", "obj", "TestResults", "node_modules", ".gradle", ".venv", "venv", "__pycache__", "vendor", "packages":
 		return true
 	default:
 		return false
@@ -36,7 +36,7 @@ func IsTestPath(repo string, path string) bool {
 func IsConfigFile(path string) bool {
 	name := strings.ToLower(filepath.Base(path))
 	ext := strings.ToLower(filepath.Ext(path))
-	if strings.HasPrefix(name, "application.") || strings.HasPrefix(name, "bootstrap.") {
+	if strings.HasPrefix(name, "application.") || strings.HasPrefix(name, "bootstrap.") || strings.HasPrefix(name, "appsettings.") || name == "appsettings.json" || name == "launchsettings.json" {
 		return true
 	}
 	switch ext {
@@ -74,7 +74,7 @@ func InferServiceRoot(repo string, file string) string {
 		}
 	}
 	for dir := filepath.Dir(file); dir != repo && dir != "."; dir = filepath.Dir(dir) {
-		if fileExists(filepath.Join(dir, "pom.xml")) || fileExists(filepath.Join(dir, "build.gradle")) || fileExists(filepath.Join(dir, "build.gradle.kts")) || fileExists(filepath.Join(dir, "go.mod")) {
+		if fileExists(filepath.Join(dir, "pom.xml")) || fileExists(filepath.Join(dir, "build.gradle")) || fileExists(filepath.Join(dir, "build.gradle.kts")) || fileExists(filepath.Join(dir, "go.mod")) || hasFileWithExt(dir, ".csproj") || hasFileWithExt(dir, ".sln") {
 			return dir
 		}
 	}
@@ -145,4 +145,20 @@ func LooksHighCardinalityAttribute(attribute string) bool {
 func fileExists(path string) bool {
 	info, err := os.Stat(path)
 	return err == nil && !info.IsDir()
+}
+
+func hasFileWithExt(dir string, ext string) bool {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return false
+	}
+	for _, entry := range entries {
+		if entry.IsDir() {
+			continue
+		}
+		if strings.EqualFold(filepath.Ext(entry.Name()), ext) {
+			return true
+		}
+	}
+	return false
 }

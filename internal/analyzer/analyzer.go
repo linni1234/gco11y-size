@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/dotnet"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/framework"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/golang"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java"
@@ -54,6 +55,7 @@ func registeredAnalyzers() []framework.Analyzer {
 	return []framework.Analyzer{
 		java.New(),
 		golang.New(),
+		dotnet.New(),
 	}
 }
 
