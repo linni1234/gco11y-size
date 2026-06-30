@@ -14,6 +14,7 @@ import (
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/golang"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/java"
 	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/nodejs"
+	"github.com/nilslindholm/metricgenerationsizer/internal/analyzer/python"
 	"github.com/nilslindholm/metricgenerationsizer/internal/model"
 )
 
@@ -56,6 +57,7 @@ func registeredAnalyzers() []framework.Analyzer {
 	return []framework.Analyzer{
 		java.New(),
 		nodejs.New(),
+		python.New(),
 		golang.New(),
 		dotnet.New(),
 	}

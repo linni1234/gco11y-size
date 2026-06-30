@@ -1,0 +1,23 @@
+[project]
+name = "python-checkout"
+dependencies = [
+  "fastapi",
+  "flask",
+  "django",
+  "djangorestframework",
+  "sqlalchemy",
+  "psycopg",
+  "pymongo",
+  "redis",
+  "qdrant-client",
+  "celery",
+  "rq",
+  "apscheduler",
+  "kafka-python",
+  "pika",
+  "boto3",
+  "google-cloud-pubsub",
+  "opentelemetry-api",
+  "opentelemetry-sdk",
+  "openai",
+]

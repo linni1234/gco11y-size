@@ -22,7 +22,7 @@ Active series are driven by label cardinality, not request volume alone. Source 
 - Scans local folders, GitHub/GitLab HTTPS URLs, SSH URLs, and shorthand Git inputs.
 - Supports single-repo and multi-repo workspace reports with the same output format.
 - Produces standalone `report.html` and `report.json` files.
-- Supports Java, Go, .NET/C#, and JavaScript/TypeScript analyzers through a shared analyzer interface.
+- Supports Java, Go, .NET/C#, JavaScript/TypeScript, and Python analyzers through a shared analyzer interface.
 - Estimates span metrics, service graph metrics, and host or target info separately.
 - Supports native, classic, and dual histogram sizing.
 - Supports environment, instance, processor, custom dimension, and gateway method-expansion controls.
@@ -184,6 +184,7 @@ Remote repositories are shallow-cloned into a temporary worktree and removed aft
 | Go | `net/http`, Gin, Echo, Chi, Gorilla mux, Fiber, gRPC/protobuf, Connect, messaging, outbound dependencies, and OpenTelemetry hints. | [Go analyzer README](internal/analyzer/golang/README.md) |
 | .NET/C# | ASP.NET Core Minimal APIs/controllers/Razor/Blazor route hints, SignalR, YARP, gRPC/protobuf, EF/data clients, messaging/background frameworks, Aspire/Orleans hints, and OpenTelemetry hints. | [.NET analyzer README](internal/analyzer/dotnet/README.md) |
 | JavaScript/TypeScript | Node.js backends using Express, Fastify, NestJS, Koa/Hapi/Hono best-effort, Next.js API/route handlers, serverless HTTP handlers, gRPC/protobuf, data clients, messaging, and OpenTelemetry hints. | [Node.js analyzer README](internal/analyzer/nodejs/README.md) |
+| Python | Backend Python services using FastAPI/Starlette, Flask/Quart, Django/DRF, serverless HTTP handlers, gRPC/protobuf, data/cache/search/vector clients, messaging/background workers, cloud SDKs, and OpenTelemetry hints. | [Python analyzer README](internal/analyzer/python/README.md) |
 
 Operations include protocol, confidence, detector metadata, source file, and handler hints where available. The shared merge layer deduplicates operations by:
 
@@ -331,6 +332,7 @@ internal/analyzer/java/   Java analyzer and detectors
 internal/analyzer/golang/ Go analyzer and detectors
 internal/analyzer/dotnet/ .NET/C# analyzer and detectors
 internal/analyzer/nodejs/ JavaScript/TypeScript analyzer and detectors
+internal/analyzer/python/ Python analyzer and detectors
 internal/config/          CLI and metrics-generator defaults
 internal/estimator/       Active-series sizing formulas
 internal/report/          HTML and JSON rendering

@@ -9,7 +9,7 @@ import (
 
 func ShouldSkipDir(name string) bool {
 	switch name {
-	case ".git", ".idea", ".vscode", ".vs", "target", "build", "out", "bin", "obj", "TestResults", "node_modules", ".gradle", ".venv", "venv", "__pycache__", "vendor", "packages", ".next", ".nuxt", ".turbo", ".vercel", "dist", "coverage", ".nyc_output", "storybook-static", "cypress", "playwright-report":
+	case ".git", ".idea", ".vscode", ".vs", "target", "build", "out", "bin", "obj", "TestResults", "node_modules", ".gradle", ".venv", "venv", "__pycache__", "vendor", "packages", ".next", ".nuxt", ".turbo", ".vercel", "dist", "coverage", ".nyc_output", "storybook-static", "cypress", "playwright-report", ".tox", ".nox", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".pytype", ".eggs", "site-packages", "htmlcov":
 		return true
 	default:
 		return false
